@@ -60,12 +60,12 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
 
-      # - name: 'Commit changes'
-      #   run: |
-      #     git config --global user.name 'GitHub'
-      #     git config --global user.email 'noreply@github.com'
-      #     git commit -am "package: `$VERSION`"
-      #     git push
+      - name: 'Commit changes'
+        run: |
+          git config --global user.name 'GitHub'
+          git config --global user.email 'noreply@github.com'
+          git commit -am "package: `$VERSION`"
+          git push
 
       - name: 'Create release'
         env:
