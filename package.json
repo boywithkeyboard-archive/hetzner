@@ -1,0 +1,47 @@
+{
+  "name": "@boywithkeyboard/hetzner-api-client",
+  "version": "0.0.0",
+  "author": "Samuel Kopp (https://samuelkopp.de)",
+  "license": "MIT",
+  "description": "A preconfigured, up-to-date OpenAPI client for Hetzner.",
+  "funding": "https://github.com/sponsors/boywithkeyboard",
+  "repository": "github:boywithkeyboard/hetzner-api-client",
+  "keywords": [
+    "hetzner",
+    "openapi"
+  ],
+  "main": "./build/main.cjs",
+  "module": "./build/main.mjs",
+  "types": "./build/main.d.ts",
+  "files": [
+    "./build"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./build/main.mjs",
+        "types": "./build/main.d.ts"
+      },
+      "require": {
+        "default": "./build/main.cjs",
+        "types": "./build/main.d.ts"
+      }
+    }
+  },
+  "scripts": {
+    "download": "openapi-typescript https://docs.hetzner.cloud/spec.json -o ./spec.ts",
+    "build": "npm run download && tsc && esbuild main.ts --bundle --minify --format=esm --outfile=build/main.mjs && esbuild main.ts --bundle --minify --format=cjs --outfile=build/main.cjs"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "esbuild": "^0.20.1",
+    "openapi-typescript": "^6.7.4",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

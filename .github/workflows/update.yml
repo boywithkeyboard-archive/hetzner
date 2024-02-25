@@ -1,0 +1,73 @@
+name: 'update'
+
+on:
+  schedule:
+    - cron: '0 0 * * 5'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 'Install dependencies'
+        run: npm i
+      
+      - name: 'Calculate version'
+        id: calculate_version
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { readFileSync, writeFileSync } = require('node:fs')
+
+            const year = new Date().getFullYear().toString()
+            let month = new Date().getMonth() + 1
+            let day = new Date().getDate()
+
+            if (month < 10)
+              month = '0' + month.toString()
+
+            if (day < 10)
+              day = '0' + day.toString()
+
+            const version = `1.${year + month + day}.0`
+
+            const packageJson = JSON.parse(readFileSync('./package.json', { encoding: 'utf-8' }))
+
+            packageJson.version = version
+
+            writeFileSync('./package.json', JSON.stringify(packageJson, null, 2))
+
+            return version
+
+      - name: 'Build package'
+        run: npm run build
+
+      - name: 'Publish package'
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+
+      - name: 'Commit changes'
+        env:
+          VERSION: ${{ steps.calculate_version.outputs.result }}
+        run: |
+          git config --global user.name 'GitHub'
+          git config --global user.email 'noreply@github.com'
+          git commit -am "package: `$VERSION`"
+          git push
+
+      - name: 'Create release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.calculate_version.outputs.result }}
+        run: gh release create $VERSION --title $VERSION
