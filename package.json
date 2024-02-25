@@ -1,6 +1,6 @@
 {
   "name": "@boywithkeyboard/hetzner-api-client",
-  "version": "0.0.0",
+  "version": "1.20240225.0",
   "author": "Samuel Kopp (https://samuelkopp.de)",
   "license": "MIT",
   "description": "A preconfigured, up-to-date OpenAPI client for Hetzner.",
