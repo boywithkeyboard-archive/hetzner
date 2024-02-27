@@ -1,6 +1,6 @@
 ## hetzner-api-client
 
-This package is auto-generated from Hetzner's OpenAPI specification.
+This package is **auto-generated** from Hetzner's OpenAPI specification.
 
 ### Setup
 
