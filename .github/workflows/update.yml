@@ -1,8 +1,8 @@
-name: 'update'
+name: update
 
 on:
   schedule:
-    - cron: '0 0 * * 5'
+    - cron: 0 0 * * 5
   workflow_dispatch:
 
 jobs:
@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: 18
 
-      - name: 'Install dependencies'
+      - name: Install Dependencies
         run: npm i
       
-      - name: 'Calculate version'
+      - name: Determine Version
         uses: actions/github-script@v7
         with:
           script: |
@@ -40,24 +40,31 @@ jobs:
 
             const version = `1.${year + month + day}.0`
 
+            core.exportVariable('VERSION', version)
+
             const packageJson = JSON.parse(readFileSync('./package.json', { encoding: 'utf-8' }))
 
             packageJson.version = version
 
             writeFileSync('./package.json', JSON.stringify(packageJson, null, 2))
 
-            core.exportVariable('VERSION', version)
-
-      - name: 'Build package'
+      - name: Build Package
         run: npm run build
 
-      - name: 'Publish package'
+      - name: Publish Package
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
 
-      - name: 'Create release'
+      - name: Commit Changes
+        run: |
+          git config --global user.name "GitHub"
+          git config --global user.email "noreply@github.com"
+          git commit -am "refactor: autoupdate"
+          git push
+
+      - name: Create Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release create $VERSION --title $VERSION
