@@ -13,15 +13,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -55,9 +64,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -71,7 +81,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -94,40 +106,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -147,7 +160,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -182,9 +195,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -198,7 +212,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -233,17 +249,26 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
           /** @description Can be used multiple times. The response will only contain Certificates matching the type. */
           type?: "uploaded" | "managed";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -260,7 +285,7 @@ export interface paths {
                    */
                   certificate: string | null;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -280,11 +305,22 @@ export interface paths {
                   fingerprint: string | null;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -349,40 +385,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -472,9 +509,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -488,7 +526,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -518,7 +558,7 @@ export interface paths {
                  */
                 certificate: string | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -538,11 +578,22 @@ export interface paths {
                 fingerprint: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -619,15 +670,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -661,9 +721,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -677,7 +738,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -700,40 +763,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -788,9 +852,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -804,7 +869,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -839,7 +906,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -857,7 +924,7 @@ export interface paths {
                  */
                 certificate: string | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -877,11 +944,22 @@ export interface paths {
                 fingerprint: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -960,7 +1038,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -996,7 +1074,7 @@ export interface paths {
                  */
                 certificate: string | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -1016,11 +1094,22 @@ export interface paths {
                 fingerprint: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -1095,7 +1184,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -1117,17 +1206,23 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -1161,9 +1256,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -1177,7 +1273,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -1200,40 +1298,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -1303,9 +1402,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -1319,7 +1419,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -1391,9 +1493,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -1407,7 +1510,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -1446,9 +1551,9 @@ export interface paths {
           name?: string;
           /** @description Can be used multiple times. */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -1465,7 +1570,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -1553,40 +1660,41 @@ export interface paths {
                 }[];
               /** ListMeta */
               meta: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -1629,7 +1737,9 @@ export interface paths {
                 description: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -1729,15 +1839,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -1752,7 +1871,9 @@ export interface paths {
                           server?: {
                             /**
                              * Format: int64
-                             * @description ID of the Resource
+                             * @description ID of the Resource.
+                             * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                             *
                              * @example 42
                              */
                             id: number;
@@ -1774,7 +1895,9 @@ export interface paths {
                       server?: {
                         /**
                          * Format: int64
-                         * @description ID of the Resource
+                         * @description ID of the Resource.
+                         * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                         *
                          * @example 42
                          */
                         id: number;
@@ -1787,17 +1910,28 @@ export interface paths {
                       type: "server" | "label_selector";
                     })[];
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels?: {
                     [key: string]: string;
                   };
@@ -1846,40 +1980,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -2063,9 +2198,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -2079,7 +2215,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -2107,7 +2245,9 @@ export interface paths {
                         server?: {
                           /**
                            * Format: int64
-                           * @description ID of the Resource
+                           * @description ID of the Resource.
+                           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                           *
                            * @example 42
                            */
                           id: number;
@@ -2129,7 +2269,9 @@ export interface paths {
                     server?: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -2142,17 +2284,28 @@ export interface paths {
                     type: "server" | "label_selector";
                   })[];
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels?: {
                   [key: string]: string;
                 };
@@ -2213,15 +2366,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -2255,9 +2417,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -2271,7 +2434,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -2294,40 +2459,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -2382,9 +2548,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -2398,7 +2565,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -2433,7 +2602,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -2449,7 +2618,9 @@ export interface paths {
                         server?: {
                           /**
                            * Format: int64
-                           * @description ID of the Resource
+                           * @description ID of the Resource.
+                           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                           *
                            * @example 42
                            */
                           id: number;
@@ -2471,7 +2642,9 @@ export interface paths {
                     server?: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -2484,17 +2657,28 @@ export interface paths {
                     type: "server" | "label_selector";
                   })[];
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels?: {
                   [key: string]: string;
                 };
@@ -2557,7 +2741,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -2591,7 +2775,9 @@ export interface paths {
                         server?: {
                           /**
                            * Format: int64
-                           * @description ID of the Resource
+                           * @description ID of the Resource.
+                           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                           *
                            * @example 42
                            */
                           id: number;
@@ -2613,7 +2799,9 @@ export interface paths {
                     server?: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -2626,17 +2814,28 @@ export interface paths {
                     type: "server" | "label_selector";
                   })[];
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels?: {
                   [key: string]: string;
                 };
@@ -2701,7 +2900,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -2721,17 +2920,23 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -2765,9 +2970,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -2781,7 +2987,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -2804,40 +3012,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -2908,7 +3117,7 @@ export interface paths {
                  * @description Type of the resource
                  * @enum {string}
                  */
-                type?: "server" | "label_selector";
+                type: "server" | "label_selector";
               })[];
           };
         };
@@ -2943,9 +3152,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -2959,7 +3169,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -2982,40 +3194,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -3086,7 +3299,7 @@ export interface paths {
                  * @description Type of the resource
                  * @enum {string}
                  */
-                type?: "server" | "label_selector";
+                type: "server" | "label_selector";
               })[];
           };
         };
@@ -3121,9 +3334,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -3137,7 +3351,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -3160,40 +3376,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -3300,9 +3517,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -3316,7 +3534,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -3339,40 +3559,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -3429,9 +3650,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -3445,7 +3667,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -3480,15 +3704,21 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
           /** @description Can be used multiple times. Choices id id:asc id:desc created created:asc created:desc */
           sort?: "id" | "id:asc" | "id:desc" | "created" | "created:asc" | "created:desc";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -3504,13 +3734,13 @@ export interface paths {
                    */
                   blocked: boolean;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
                   /**
-                   * @description Description of the Resource
-                   * @example this describes my resource
+                   * @description Description of the Resource.
+                   * @example This describes my resource
                    */
                   description: string | null;
                   /** @description Array of reverse DNS entries */
@@ -3574,16 +3804,27 @@ export interface paths {
                   };
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
                   /**
-                   * @description IP address
+                   * @description IP address.
                    * @example 131.232.99.1
                    */
                   ip: string;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -3592,10 +3833,10 @@ export interface paths {
                    * @example my-resource
                    */
                   name: string;
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -3614,40 +3855,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -3728,9 +3970,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -3744,7 +3987,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -3772,13 +4017,13 @@ export interface paths {
                  */
                 blocked: boolean;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
-                 * @description Description of the Resource
-                 * @example this describes my resource
+                 * @description Description of the Resource.
+                 * @example This describes my resource
                  */
                 description: string | null;
                 /** @description Array of reverse DNS entries */
@@ -3842,16 +4087,27 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
                 /**
-                 * @description IP address
+                 * @description IP address.
                  * @example 131.232.99.1
                  */
                 ip: string;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -3860,10 +4116,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -3894,15 +4150,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -3936,9 +4201,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -3952,7 +4218,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -3975,40 +4243,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -4063,9 +4332,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -4079,7 +4349,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -4130,13 +4402,13 @@ export interface paths {
                  */
                 blocked: boolean;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
-                 * @description Description of the Resource
-                 * @example this describes my resource
+                 * @description Description of the Resource.
+                 * @example This describes my resource
                  */
                 description: string | null;
                 /** @description Array of reverse DNS entries */
@@ -4200,16 +4472,27 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
                 /**
-                 * @description IP address
+                 * @description IP address.
                  * @example 131.232.99.1
                  */
                 ip: string;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -4218,10 +4501,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -4290,13 +4573,13 @@ export interface paths {
                  */
                 blocked: boolean;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
-                 * @description Description of the Resource
-                 * @example this describes my resource
+                 * @description Description of the Resource.
+                 * @example This describes my resource
                  */
                 description: string | null;
                 /** @description Array of reverse DNS entries */
@@ -4360,16 +4643,27 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
                 /**
-                 * @description IP address
+                 * @description IP address.
                  * @example 131.232.99.1
                  */
                 ip: string;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -4378,10 +4672,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -4430,13 +4724,19 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
@@ -4474,9 +4774,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -4490,7 +4791,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -4513,40 +4816,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -4613,9 +4917,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -4629,7 +4934,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -4720,9 +5027,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -4736,7 +5044,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -4817,9 +5127,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -4833,7 +5144,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -4903,9 +5216,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -4919,7 +5233,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -4991,9 +5307,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -5007,7 +5324,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -5042,7 +5361,10 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
           /** @description Can be used multiple times. */
           type?: "system" | "snapshot" | "backup" | "app";
@@ -5052,15 +5374,21 @@ export interface paths {
           bound_to?: string;
           /** @description Can be used multiple times. */
           include_deprecated?: boolean;
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
           /** @description Return only Images with the given architecture. */
           architecture?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -5083,7 +5411,7 @@ export interface paths {
                    */
                   bound_to: number | null;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -5123,7 +5451,9 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -5132,7 +5462,16 @@ export interface paths {
                    * @example 2.3
                    */
                   image_size: number | null;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -5152,10 +5491,10 @@ export interface paths {
                    * @example 20.04
                    */
                   os_version: string | null;
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -5179,40 +5518,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -5232,15 +5572,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -5274,9 +5623,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -5290,7 +5640,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -5313,40 +5665,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -5401,9 +5754,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -5417,7 +5771,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -5475,7 +5831,7 @@ export interface paths {
                  */
                 bound_to: number | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -5515,7 +5871,9 @@ export interface paths {
                 disk_size: number;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -5524,7 +5882,16 @@ export interface paths {
                  * @example 2.3
                  */
                 image_size: number | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -5544,10 +5911,10 @@ export interface paths {
                  * @example 20.04
                  */
                 os_version: string | null;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -5629,7 +5996,7 @@ export interface paths {
                  */
                 bound_to: number | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -5669,7 +6036,9 @@ export interface paths {
                 disk_size: number;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -5678,7 +6047,16 @@ export interface paths {
                  * @example 2.3
                  */
                 image_size: number | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -5698,10 +6076,10 @@ export interface paths {
                  * @example 20.04
                  */
                 os_version: string | null;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -5755,13 +6133,19 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
@@ -5799,9 +6183,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -5815,7 +6200,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -5838,40 +6225,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -5937,9 +6325,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -5953,7 +6342,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -6025,9 +6416,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -6041,7 +6433,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -6082,9 +6476,9 @@ export interface paths {
           architecture?: string;
           /** @description Include Images with wildcard architecture (architecture is null). Works only if architecture filter is specified. */
           include_architecture_wildcard?: boolean;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -6102,25 +6496,27 @@ export interface paths {
                   architecture: "x86" | "arm" | null;
                   /**
                    * DeprecationInfo
-                   * @description Describes if, when & how the resources was deprecated. If this field is
-                   * set to `null` the resource is not deprecated. If it has a value, it is
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
                    * considered deprecated.
                    */
                   deprecation: {
                     /**
                      * Format: iso-8601
-                     * @description Date of when the deprecation was announced.
+                     * @description Date of the deprecation announcement.
                      *
                      * @example 2023-06-01T00:00:00+00:00
                      */
                     announced: string;
                     /**
                      * Format: iso-8601
-                     * @description After the time in this field, the resource will not be available
-                     * from the general listing endpoint of the resource type, and it
-                     * can not be used in new resources. For example, if this is an
-                     * image, you can not create new servers with this image after the
-                     * mentioned date.
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
                      *
                      * @example 2023-09-01T00:00:00+00:00
                      */
@@ -6133,7 +6529,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -6150,40 +6548,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -6221,25 +6620,27 @@ export interface paths {
                 architecture: "x86" | "arm" | null;
                 /**
                  * DeprecationInfo
-                 * @description Describes if, when & how the resources was deprecated. If this field is
-                 * set to `null` the resource is not deprecated. If it has a value, it is
+                 * @description Describes if, when and how the resource is deprecated. If this field is
+                 * set to `null` the resource is not deprecated. If a value is set, it is
                  * considered deprecated.
                  */
                 deprecation: {
                   /**
                    * Format: iso-8601
-                   * @description Date of when the deprecation was announced.
+                   * @description Date of the deprecation announcement.
                    *
                    * @example 2023-06-01T00:00:00+00:00
                    */
                   announced: string;
                   /**
                    * Format: iso-8601
-                   * @description After the time in this field, the resource will not be available
-                   * from the general listing endpoint of the resource type, and it
-                   * can not be used in new resources. For example, if this is an
-                   * image, you can not create new servers with this image after the
-                   * mentioned date.
+                   * @description Date of the deprecated resource removal.
+                   *
+                   * Once this date is reached, the resource will not be returned
+                   * by resource type "list" endpoint, and the resource can not be
+                   * used to create new resources. For example, if this is an
+                   * image, you can not create new servers with this image after
+                   * the mentioned date.
                    *
                    * @example 2023-09-01T00:00:00+00:00
                    */
@@ -6252,7 +6653,9 @@ export interface paths {
                 description: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -6283,9 +6686,9 @@ export interface paths {
         query?: {
           /** @description Can be used to filter Load Balancer types by their name. The response will only contain the Load Balancer type matching the specified name. */
           name?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -6343,36 +6746,36 @@ export interface paths {
                   /** @description Prices in different network zones */
                   prices: {
                       /**
-                       * @description Name of the Location the price is for
+                       * @description Name of the Location the price is for.
                        * @example fsn1
                        */
                       location: string;
-                      /** @description Hourly costs for a Resource in this Location */
+                      /** @description Hourly costs for a Resource in this Location. */
                       price_hourly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
                       };
-                      /** @description Monthly costs for a Resource in this Location */
+                      /** @description Monthly costs for a Resource in this Location. */
                       price_monthly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
@@ -6451,36 +6854,36 @@ export interface paths {
                 /** @description Prices in different network zones */
                 prices: {
                     /**
-                     * @description Name of the Location the price is for
+                     * @description Name of the Location the price is for.
                      * @example fsn1
                      */
                     location: string;
-                    /** @description Hourly costs for a Resource in this Location */
+                    /** @description Hourly costs for a Resource in this Location. */
                     price_hourly: {
                       /**
                        * Format: decimal
-                       * @description Price with VAT added
+                       * @description Price with VAT added.
                        * @example 1.1900000000000000
                        */
                       gross: string;
                       /**
                        * Format: decimal
-                       * @description Price without VAT
+                       * @description Price without VAT.
                        * @example 1.0000000000
                        */
                       net: string;
                     };
-                    /** @description Monthly costs for a Resource in this Location */
+                    /** @description Monthly costs for a Resource in this Location. */
                     price_monthly: {
                       /**
                        * Format: decimal
-                       * @description Price with VAT added
+                       * @description Price with VAT added.
                        * @example 1.1900000000000000
                        */
                       gross: string;
                       /**
                        * Format: decimal
-                       * @description Price without VAT
+                       * @description Price without VAT.
                        * @example 1.0000000000
                        */
                       net: string;
@@ -6501,15 +6904,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -6528,13 +6940,15 @@ export interface paths {
                     type: "round_robin" | "least_connections";
                   };
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -6549,7 +6963,16 @@ export interface paths {
                    * @description Inbound Traffic for the current billing period in bytes
                    */
                   ingoing_traffic: number | null;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -6602,36 +7025,36 @@ export interface paths {
                     /** @description Prices in different network zones */
                     prices: {
                         /**
-                         * @description Name of the Location the price is for
+                         * @description Name of the Location the price is for.
                          * @example fsn1
                          */
                         location: string;
-                        /** @description Hourly costs for a Resource in this Location */
+                        /** @description Hourly costs for a Resource in this Location. */
                         price_hourly: {
                           /**
                            * Format: decimal
-                           * @description Price with VAT added
+                           * @description Price with VAT added.
                            * @example 1.1900000000000000
                            */
                           gross: string;
                           /**
                            * Format: decimal
-                           * @description Price without VAT
+                           * @description Price without VAT.
                            * @example 1.0000000000
                            */
                           net: string;
                         };
-                        /** @description Monthly costs for a Resource in this Location */
+                        /** @description Monthly costs for a Resource in this Location. */
                         price_monthly: {
                           /**
                            * Format: decimal
-                           * @description Price with VAT added
+                           * @description Price with VAT added.
                            * @example 1.1900000000000000
                            */
                           gross: string;
                           /**
                            * Format: decimal
-                           * @description Price without VAT
+                           * @description Price without VAT.
                            * @example 1.0000000000
                            */
                           net: string;
@@ -6707,10 +7130,10 @@ export interface paths {
                        */
                       network?: number;
                     }[];
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -6977,40 +7400,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -7354,9 +7778,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -7370,7 +7795,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -7401,13 +7828,15 @@ export interface paths {
                   type: "round_robin" | "least_connections";
                 };
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -7422,7 +7851,16 @@ export interface paths {
                  * @description Inbound Traffic for the current billing period in bytes
                  */
                 ingoing_traffic: number | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -7475,36 +7913,36 @@ export interface paths {
                   /** @description Prices in different network zones */
                   prices: {
                       /**
-                       * @description Name of the Location the price is for
+                       * @description Name of the Location the price is for.
                        * @example fsn1
                        */
                       location: string;
-                      /** @description Hourly costs for a Resource in this Location */
+                      /** @description Hourly costs for a Resource in this Location. */
                       price_hourly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
                       };
-                      /** @description Monthly costs for a Resource in this Location */
+                      /** @description Monthly costs for a Resource in this Location. */
                       price_monthly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
@@ -7580,10 +8018,10 @@ export interface paths {
                      */
                     network?: number;
                   }[];
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -7862,15 +8300,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -7904,9 +8351,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -7920,7 +8368,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -7943,40 +8393,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -8031,9 +8482,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -8047,7 +8499,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -8101,13 +8555,15 @@ export interface paths {
                   type: "round_robin" | "least_connections";
                 };
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -8122,7 +8578,16 @@ export interface paths {
                  * @description Inbound Traffic for the current billing period in bytes
                  */
                 ingoing_traffic: number | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -8175,36 +8640,36 @@ export interface paths {
                   /** @description Prices in different network zones */
                   prices: {
                       /**
-                       * @description Name of the Location the price is for
+                       * @description Name of the Location the price is for.
                        * @example fsn1
                        */
                       location: string;
-                      /** @description Hourly costs for a Resource in this Location */
+                      /** @description Hourly costs for a Resource in this Location. */
                       price_hourly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
                       };
-                      /** @description Monthly costs for a Resource in this Location */
+                      /** @description Monthly costs for a Resource in this Location. */
                       price_monthly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
@@ -8280,10 +8745,10 @@ export interface paths {
                      */
                     network?: number;
                   }[];
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -8601,13 +9066,15 @@ export interface paths {
                   type: "round_robin" | "least_connections";
                 };
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -8622,7 +9089,16 @@ export interface paths {
                  * @description Inbound Traffic for the current billing period in bytes
                  */
                 ingoing_traffic: number | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -8675,36 +9151,36 @@ export interface paths {
                   /** @description Prices in different network zones */
                   prices: {
                       /**
-                       * @description Name of the Location the price is for
+                       * @description Name of the Location the price is for.
                        * @example fsn1
                        */
                       location: string;
-                      /** @description Hourly costs for a Resource in this Location */
+                      /** @description Hourly costs for a Resource in this Location. */
                       price_hourly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
                       };
-                      /** @description Monthly costs for a Resource in this Location */
+                      /** @description Monthly costs for a Resource in this Location. */
                       price_monthly: {
                         /**
                          * Format: decimal
-                         * @description Price with VAT added
+                         * @description Price with VAT added.
                          * @example 1.1900000000000000
                          */
                         gross: string;
                         /**
                          * Format: decimal
-                         * @description Price without VAT
+                         * @description Price without VAT.
                          * @example 1.0000000000
                          */
                         net: string;
@@ -8780,10 +9256,10 @@ export interface paths {
                      */
                     network?: number;
                   }[];
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -9080,13 +9556,19 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
@@ -9124,9 +9606,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -9140,7 +9623,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -9163,40 +9648,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -9388,9 +9874,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -9404,7 +9891,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -9530,9 +10019,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -9546,7 +10036,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -9641,9 +10133,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -9657,7 +10150,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -9738,9 +10233,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -9754,7 +10250,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -9843,9 +10341,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -9859,7 +10358,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -9940,9 +10441,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -9956,7 +10458,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10043,9 +10547,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10059,7 +10564,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10140,9 +10647,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10156,7 +10664,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10238,9 +10748,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10254,7 +10765,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10331,9 +10844,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10347,7 +10861,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10417,9 +10933,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10433,7 +10950,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10542,9 +11061,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10558,7 +11078,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10763,9 +11285,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10779,7 +11302,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10851,9 +11376,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -10867,7 +11393,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -10995,9 +11523,9 @@ export interface paths {
           name?: string;
           /** @description Can be used multiple times. */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -11053,40 +11581,41 @@ export interface paths {
                 }[];
               /** ListMeta */
               meta: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -11174,13 +11703,19 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -11191,40 +11726,41 @@ export interface paths {
             "application/json": {
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -11517,15 +12053,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -11559,9 +12104,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -11575,7 +12121,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -11598,40 +12146,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -11686,9 +12235,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -11702,7 +12252,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12014,13 +12566,19 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
@@ -12058,9 +12616,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -12074,7 +12633,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -12097,40 +12658,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -12203,9 +12765,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -12219,7 +12782,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12318,9 +12883,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -12334,7 +12900,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12421,9 +12989,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -12437,7 +13006,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12520,9 +13091,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -12536,7 +13108,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12624,9 +13198,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -12640,7 +13215,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12723,9 +13300,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -12739,7 +13317,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12811,9 +13391,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -12827,7 +13408,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -12862,17 +13445,26 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
           /** @description Can be used multiple times. The response will only contain PlacementGroups matching the type. */
           type?: "spread";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -12883,40 +13475,41 @@ export interface paths {
             "application/json": {
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -12924,17 +13517,28 @@ export interface paths {
               };
               placement_groups: {
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -13017,9 +13621,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -13033,7 +13638,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -13057,17 +13664,28 @@ export interface paths {
               /** PlacementGroup */
               placement_group: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -13104,7 +13722,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -13116,17 +13734,28 @@ export interface paths {
               /** PlacementGroup */
               placement_group: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -13165,7 +13794,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -13195,17 +13824,28 @@ export interface paths {
               /** PlacementGroup */
               placement_group: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -13240,7 +13880,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -13552,18 +14192,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
           /**
            * @description Can be used to filter resources by their ip. The response will only contain the resources matching the specified ip.
            * @example 127.0.0.1
            */
           ip?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
           /** @description Can be used multiple times. Choices id id:asc id:desc created created:asc created:desc */
           sort?: "id" | "id:asc" | "id:desc" | "created" | "created:asc" | "created:desc";
@@ -13576,40 +14222,41 @@ export interface paths {
             "application/json": {
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -13638,7 +14285,7 @@ export interface paths {
                    */
                   blocked: boolean;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -13651,7 +14298,9 @@ export interface paths {
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -13752,16 +14401,27 @@ export interface paths {
                     }[];
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
                   /**
-                   * @description IP address
+                   * @description IP address.
                    * @example 131.232.99.1
                    */
                   ip: string;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -13770,10 +14430,10 @@ export interface paths {
                    * @example my-resource
                    */
                   name: string;
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -13881,9 +14541,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -13897,7 +14558,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -13942,7 +14605,7 @@ export interface paths {
                  */
                 blocked: boolean;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -13955,7 +14618,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -14056,16 +14721,27 @@ export interface paths {
                   }[];
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
                 /**
-                 * @description IP address
+                 * @description IP address.
                  * @example 131.232.99.1
                  */
                 ip: string;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -14074,10 +14750,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -14102,15 +14778,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -14144,9 +14829,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -14160,7 +14846,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -14183,40 +14871,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -14271,9 +14960,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -14287,7 +14977,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -14322,7 +15014,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -14355,7 +15047,7 @@ export interface paths {
                  */
                 blocked: boolean;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -14368,7 +15060,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -14469,16 +15163,27 @@ export interface paths {
                   }[];
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
                 /**
-                 * @description IP address
+                 * @description IP address.
                  * @example 131.232.99.1
                  */
                 ip: string;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -14487,10 +15192,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -14517,7 +15222,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -14573,7 +15278,7 @@ export interface paths {
                  */
                 blocked: boolean;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -14586,7 +15291,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -14687,16 +15394,27 @@ export interface paths {
                   }[];
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
                 /**
-                 * @description IP address
+                 * @description IP address.
                  * @example 131.232.99.1
                  */
                 ip: string;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -14705,10 +15423,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -14733,7 +15451,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -14819,9 +15537,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -14835,7 +15554,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -14926,9 +15647,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -14942,7 +15664,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -15025,9 +15749,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -15041,7 +15766,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -15122,9 +15849,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -15138,7 +15866,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -15175,9 +15905,9 @@ export interface paths {
         query?: {
           /** @description Can be used to filter Server types by their name. The response will only contain the Server type matching the specified name. */
           name?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -15210,25 +15940,27 @@ export interface paths {
                   deprecated: boolean;
                   /**
                    * DeprecationInfo
-                   * @description Describes if, when & how the resources was deprecated. If this field is
-                   * set to `null` the resource is not deprecated. If it has a value, it is
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
                    * considered deprecated.
                    */
                   deprecation?: {
                     /**
                      * Format: iso-8601
-                     * @description Date of when the deprecation was announced.
+                     * @description Date of the deprecation announcement.
                      *
                      * @example 2023-06-01T00:00:00+00:00
                      */
                     announced: string;
                     /**
                      * Format: iso-8601
-                     * @description After the time in this field, the resource will not be available
-                     * from the general listing endpoint of the resource type, and it
-                     * can not be used in new resources. For example, if this is an
-                     * image, you can not create new servers with this image after the
-                     * mentioned date.
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
                      *
                      * @example 2023-09-01T00:00:00+00:00
                      */
@@ -15357,25 +16089,27 @@ export interface paths {
                 deprecated: boolean;
                 /**
                  * DeprecationInfo
-                 * @description Describes if, when & how the resources was deprecated. If this field is
-                 * set to `null` the resource is not deprecated. If it has a value, it is
+                 * @description Describes if, when and how the resource is deprecated. If this field is
+                 * set to `null` the resource is not deprecated. If a value is set, it is
                  * considered deprecated.
                  */
                 deprecation?: {
                   /**
                    * Format: iso-8601
-                   * @description Date of when the deprecation was announced.
+                   * @description Date of the deprecation announcement.
                    *
                    * @example 2023-06-01T00:00:00+00:00
                    */
                   announced: string;
                   /**
                    * Format: iso-8601
-                   * @description After the time in this field, the resource will not be available
-                   * from the general listing endpoint of the resource type, and it
-                   * can not be used in new resources. For example, if this is an
-                   * image, you can not create new servers with this image after the
-                   * mentioned date.
+                   * @description Date of the deprecated resource removal.
+                   *
+                   * Once this date is reached, the resource will not be returned
+                   * by resource type "list" endpoint, and the resource can not be
+                   * used to create new resources. For example, if this is an
+                   * image, you can not create new servers with this image after
+                   * the mentioned date.
                    *
                    * @example 2023-09-01T00:00:00+00:00
                    */
@@ -15471,17 +16205,26 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
           /** @description Can be used multiple times. The response will only contain Server matching the status */
           status?: "initializing" | "starting" | "running" | "stopping" | "off" | "deleting" | "rebuilding" | "migrating" | "unknown";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -15496,40 +16239,41 @@ export interface paths {
             "application/json": {
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -15542,7 +16286,7 @@ export interface paths {
                    */
                   backup_window: string | null;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -15555,7 +16299,9 @@ export interface paths {
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -15643,7 +16389,9 @@ export interface paths {
                   };
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -15662,7 +16410,7 @@ export interface paths {
                      */
                     bound_to: number | null;
                     /**
-                     * @description Point in time when the Resource was created (in ISO-8601 format)
+                     * @description Point in time when the Resource was created (in ISO-8601 format).
                      * @example 2016-01-30T23:55:00+00:00
                      */
                     created: string;
@@ -15702,7 +16450,9 @@ export interface paths {
                     disk_size: number;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -15711,7 +16461,16 @@ export interface paths {
                      * @example 2.3
                      */
                     image_size: number | null;
-                    /** @description User-defined labels (key-value pairs) */
+                    /**
+                     * @description User-defined labels (`key/value` pairs) for the Resource.
+                     * For more information, see "[Labels](#labels)".
+                     *
+                     * @example {
+                     *   "environment": "prod",
+                     *   "example.com/my": "label",
+                     *   "just-a-key": ""
+                     * }
+                     */
                     labels: {
                       [key: string]: string;
                     };
@@ -15731,10 +16490,10 @@ export interface paths {
                      * @example 20.04
                      */
                     os_version: string | null;
-                    /** @description Protection configuration for the Resource */
+                    /** @description Protection configuration for the Resource. */
                     protection: {
                       /**
-                       * @description If true, prevents the Resource from being deleted
+                       * @description Prevent the Resource from being deleted.
                        * @example false
                        */
                       delete: boolean;
@@ -15778,25 +16537,27 @@ export interface paths {
                     architecture: "x86" | "arm" | null;
                     /**
                      * DeprecationInfo
-                     * @description Describes if, when & how the resources was deprecated. If this field is
-                     * set to `null` the resource is not deprecated. If it has a value, it is
+                     * @description Describes if, when and how the resource is deprecated. If this field is
+                     * set to `null` the resource is not deprecated. If a value is set, it is
                      * considered deprecated.
                      */
                     deprecation: {
                       /**
                        * Format: iso-8601
-                       * @description Date of when the deprecation was announced.
+                       * @description Date of the deprecation announcement.
                        *
                        * @example 2023-06-01T00:00:00+00:00
                        */
                       announced: string;
                       /**
                        * Format: iso-8601
-                       * @description After the time in this field, the resource will not be available
-                       * from the general listing endpoint of the resource type, and it
-                       * can not be used in new resources. For example, if this is an
-                       * image, you can not create new servers with this image after the
-                       * mentioned date.
+                       * @description Date of the deprecated resource removal.
+                       *
+                       * Once this date is reached, the resource will not be returned
+                       * by resource type "list" endpoint, and the resource can not be
+                       * used to create new resources. For example, if this is an
+                       * image, you can not create new servers with this image after
+                       * the mentioned date.
                        *
                        * @example 2023-09-01T00:00:00+00:00
                        */
@@ -15809,7 +16570,9 @@ export interface paths {
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -15824,7 +16587,16 @@ export interface paths {
                      */
                     type: "public" | "private" | null;
                   }) | null;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -15852,17 +16624,28 @@ export interface paths {
                    */
                   placement_group?: {
                     /**
-                     * @description Point in time when the Resource was created (in ISO-8601 format)
+                     * @description Point in time when the Resource was created (in ISO-8601 format).
                      * @example 2016-01-30T23:55:00+00:00
                      */
                     created: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
-                    /** @description User-defined labels (key-value pairs) */
+                    /**
+                     * @description User-defined labels (`key/value` pairs) for the Resource.
+                     * For more information, see "[Labels](#labels)".
+                     *
+                     * @example {
+                     *   "environment": "prod",
+                     *   "example.com/my": "label",
+                     *   "just-a-key": ""
+                     * }
+                     */
                     labels: {
                       [key: string]: string;
                     };
@@ -15930,7 +16713,9 @@ export interface paths {
                     firewalls?: ({
                         /**
                          * Format: int64
-                         * @description ID of the Resource
+                         * @description ID of the Resource.
+                         * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                         *
                          * @example 42
                          */
                         id?: number;
@@ -15962,7 +16747,9 @@ export interface paths {
                       dns_ptr: string;
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id?: number;
@@ -15994,7 +16781,9 @@ export interface paths {
                         }[] | null;
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id?: number;
@@ -16010,10 +16799,14 @@ export interface paths {
                    * @example false
                    */
                   rescue_enabled: boolean;
-                  /** @description Type of Server - determines how much ram, disk and cpu a Server has */
                   server_type: {
                     /**
-                     * Format: int64
+                     * @description Type of cpu architecture
+                     * @example x86
+                     * @enum {string}
+                     */
+                    architecture: "x86" | "arm";
+                    /**
                      * @description Number of cpu cores a Server of this type will have
                      * @example 1
                      */
@@ -16024,10 +16817,38 @@ export interface paths {
                      */
                     cpu_type: "shared" | "dedicated";
                     /**
-                     * @description True if Server type is deprecated
+                     * @description This field is deprecated. Use the deprecation object instead
                      * @example false
                      */
                     deprecated: boolean;
+                    /**
+                     * DeprecationInfo
+                     * @description Describes if, when and how the resource is deprecated. If this field is
+                     * set to `null` the resource is not deprecated. If a value is set, it is
+                     * considered deprecated.
+                     */
+                    deprecation?: {
+                      /**
+                       * Format: iso-8601
+                       * @description Date of the deprecation announcement.
+                       *
+                       * @example 2023-06-01T00:00:00+00:00
+                       */
+                      announced: string;
+                      /**
+                       * Format: iso-8601
+                       * @description Date of the deprecated resource removal.
+                       *
+                       * Once this date is reached, the resource will not be returned
+                       * by resource type "list" endpoint, and the resource can not be
+                       * used to create new resources. For example, if this is an
+                       * image, you can not create new servers with this image after
+                       * the mentioned date.
+                       *
+                       * @example 2023-09-01T00:00:00+00:00
+                       */
+                      unavailable_after: string;
+                    } | null;
                     /**
                      * @description Description of the Server type
                      * @example CX11
@@ -16035,7 +16856,7 @@ export interface paths {
                     description: string;
                     /**
                      * @description Disk size a Server of this type will have in GB
-                     * @example 25
+                     * @example 24
                      */
                     disk: number;
                     /**
@@ -16044,6 +16865,12 @@ export interface paths {
                      * @example 1
                      */
                     id: number;
+                    /**
+                     * Format: int64
+                     * @description Free traffic per month in bytes
+                     * @example 654321
+                     */
+                    included_traffic: number;
                     /**
                      * @description Memory a Server of this type will have in GB
                      * @example 1
@@ -16281,9 +17108,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -16297,7 +17125,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -16343,9 +17173,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -16359,7 +17190,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -16392,7 +17225,7 @@ export interface paths {
                  */
                 backup_window: string | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -16405,7 +17238,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -16493,7 +17328,9 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -16512,7 +17349,7 @@ export interface paths {
                    */
                   bound_to: number | null;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -16552,7 +17389,9 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -16561,7 +17400,16 @@ export interface paths {
                    * @example 2.3
                    */
                   image_size: number | null;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -16581,10 +17429,10 @@ export interface paths {
                    * @example 20.04
                    */
                   os_version: string | null;
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -16628,25 +17476,27 @@ export interface paths {
                   architecture: "x86" | "arm" | null;
                   /**
                    * DeprecationInfo
-                   * @description Describes if, when & how the resources was deprecated. If this field is
-                   * set to `null` the resource is not deprecated. If it has a value, it is
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
                    * considered deprecated.
                    */
                   deprecation: {
                     /**
                      * Format: iso-8601
-                     * @description Date of when the deprecation was announced.
+                     * @description Date of the deprecation announcement.
                      *
                      * @example 2023-06-01T00:00:00+00:00
                      */
                     announced: string;
                     /**
                      * Format: iso-8601
-                     * @description After the time in this field, the resource will not be available
-                     * from the general listing endpoint of the resource type, and it
-                     * can not be used in new resources. For example, if this is an
-                     * image, you can not create new servers with this image after the
-                     * mentioned date.
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
                      *
                      * @example 2023-09-01T00:00:00+00:00
                      */
@@ -16659,7 +17509,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -16674,7 +17526,16 @@ export interface paths {
                    */
                   type: "public" | "private" | null;
                 }) | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -16702,17 +17563,28 @@ export interface paths {
                  */
                 placement_group?: {
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -16780,7 +17652,9 @@ export interface paths {
                   firewalls?: ({
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id?: number;
@@ -16812,7 +17686,9 @@ export interface paths {
                     dns_ptr: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id?: number;
@@ -16844,7 +17720,9 @@ export interface paths {
                       }[] | null;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id?: number;
@@ -16860,10 +17738,14 @@ export interface paths {
                  * @example false
                  */
                 rescue_enabled: boolean;
-                /** @description Type of Server - determines how much ram, disk and cpu a Server has */
                 server_type: {
                   /**
-                   * Format: int64
+                   * @description Type of cpu architecture
+                   * @example x86
+                   * @enum {string}
+                   */
+                  architecture: "x86" | "arm";
+                  /**
                    * @description Number of cpu cores a Server of this type will have
                    * @example 1
                    */
@@ -16874,10 +17756,38 @@ export interface paths {
                    */
                   cpu_type: "shared" | "dedicated";
                   /**
-                   * @description True if Server type is deprecated
+                   * @description This field is deprecated. Use the deprecation object instead
                    * @example false
                    */
                   deprecated: boolean;
+                  /**
+                   * DeprecationInfo
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
+                   * considered deprecated.
+                   */
+                  deprecation?: {
+                    /**
+                     * Format: iso-8601
+                     * @description Date of the deprecation announcement.
+                     *
+                     * @example 2023-06-01T00:00:00+00:00
+                     */
+                    announced: string;
+                    /**
+                     * Format: iso-8601
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
+                     *
+                     * @example 2023-09-01T00:00:00+00:00
+                     */
+                    unavailable_after: string;
+                  } | null;
                   /**
                    * @description Description of the Server type
                    * @example CX11
@@ -16885,7 +17795,7 @@ export interface paths {
                   description: string;
                   /**
                    * @description Disk size a Server of this type will have in GB
-                   * @example 25
+                   * @example 24
                    */
                   disk: number;
                   /**
@@ -16894,6 +17804,12 @@ export interface paths {
                    * @example 1
                    */
                   id: number;
+                  /**
+                   * Format: int64
+                   * @description Free traffic per month in bytes
+                   * @example 654321
+                   */
+                  included_traffic: number;
                   /**
                    * @description Memory a Server of this type will have in GB
                    * @example 1
@@ -16970,15 +17886,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -17012,9 +17937,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -17028,7 +17954,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -17051,40 +17979,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -17139,9 +18068,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -17155,7 +18085,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -17206,7 +18138,7 @@ export interface paths {
                  */
                 backup_window: string | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -17219,7 +18151,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -17307,7 +18241,9 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -17326,7 +18262,7 @@ export interface paths {
                    */
                   bound_to: number | null;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -17366,7 +18302,9 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -17375,7 +18313,16 @@ export interface paths {
                    * @example 2.3
                    */
                   image_size: number | null;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -17395,10 +18342,10 @@ export interface paths {
                    * @example 20.04
                    */
                   os_version: string | null;
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -17442,25 +18389,27 @@ export interface paths {
                   architecture: "x86" | "arm" | null;
                   /**
                    * DeprecationInfo
-                   * @description Describes if, when & how the resources was deprecated. If this field is
-                   * set to `null` the resource is not deprecated. If it has a value, it is
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
                    * considered deprecated.
                    */
                   deprecation: {
                     /**
                      * Format: iso-8601
-                     * @description Date of when the deprecation was announced.
+                     * @description Date of the deprecation announcement.
                      *
                      * @example 2023-06-01T00:00:00+00:00
                      */
                     announced: string;
                     /**
                      * Format: iso-8601
-                     * @description After the time in this field, the resource will not be available
-                     * from the general listing endpoint of the resource type, and it
-                     * can not be used in new resources. For example, if this is an
-                     * image, you can not create new servers with this image after the
-                     * mentioned date.
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
                      *
                      * @example 2023-09-01T00:00:00+00:00
                      */
@@ -17473,7 +18422,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -17488,7 +18439,16 @@ export interface paths {
                    */
                   type: "public" | "private" | null;
                 }) | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -17516,17 +18476,28 @@ export interface paths {
                  */
                 placement_group?: {
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -17594,7 +18565,9 @@ export interface paths {
                   firewalls?: ({
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id?: number;
@@ -17626,7 +18599,9 @@ export interface paths {
                     dns_ptr: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id?: number;
@@ -17658,7 +18633,9 @@ export interface paths {
                       }[] | null;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id?: number;
@@ -17674,10 +18651,14 @@ export interface paths {
                  * @example false
                  */
                 rescue_enabled: boolean;
-                /** @description Type of Server - determines how much ram, disk and cpu a Server has */
                 server_type: {
                   /**
-                   * Format: int64
+                   * @description Type of cpu architecture
+                   * @example x86
+                   * @enum {string}
+                   */
+                  architecture: "x86" | "arm";
+                  /**
                    * @description Number of cpu cores a Server of this type will have
                    * @example 1
                    */
@@ -17688,10 +18669,38 @@ export interface paths {
                    */
                   cpu_type: "shared" | "dedicated";
                   /**
-                   * @description True if Server type is deprecated
+                   * @description This field is deprecated. Use the deprecation object instead
                    * @example false
                    */
                   deprecated: boolean;
+                  /**
+                   * DeprecationInfo
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
+                   * considered deprecated.
+                   */
+                  deprecation?: {
+                    /**
+                     * Format: iso-8601
+                     * @description Date of the deprecation announcement.
+                     *
+                     * @example 2023-06-01T00:00:00+00:00
+                     */
+                    announced: string;
+                    /**
+                     * Format: iso-8601
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
+                     *
+                     * @example 2023-09-01T00:00:00+00:00
+                     */
+                    unavailable_after: string;
+                  } | null;
                   /**
                    * @description Description of the Server type
                    * @example CX11
@@ -17699,7 +18708,7 @@ export interface paths {
                   description: string;
                   /**
                    * @description Disk size a Server of this type will have in GB
-                   * @example 25
+                   * @example 24
                    */
                   disk: number;
                   /**
@@ -17708,6 +18717,12 @@ export interface paths {
                    * @example 1
                    */
                   id: number;
+                  /**
+                   * Format: int64
+                   * @description Free traffic per month in bytes
+                   * @example 654321
+                   */
+                  included_traffic: number;
                   /**
                    * @description Memory a Server of this type will have in GB
                    * @example 1
@@ -17818,7 +18833,7 @@ export interface paths {
                  */
                 backup_window: string | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -17831,7 +18846,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -17919,7 +18936,9 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -17938,7 +18957,7 @@ export interface paths {
                    */
                   bound_to: number | null;
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -17978,7 +18997,9 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -17987,7 +19008,16 @@ export interface paths {
                    * @example 2.3
                    */
                   image_size: number | null;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -18007,10 +19037,10 @@ export interface paths {
                    * @example 20.04
                    */
                   os_version: string | null;
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -18054,25 +19084,27 @@ export interface paths {
                   architecture: "x86" | "arm" | null;
                   /**
                    * DeprecationInfo
-                   * @description Describes if, when & how the resources was deprecated. If this field is
-                   * set to `null` the resource is not deprecated. If it has a value, it is
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
                    * considered deprecated.
                    */
                   deprecation: {
                     /**
                      * Format: iso-8601
-                     * @description Date of when the deprecation was announced.
+                     * @description Date of the deprecation announcement.
                      *
                      * @example 2023-06-01T00:00:00+00:00
                      */
                     announced: string;
                     /**
                      * Format: iso-8601
-                     * @description After the time in this field, the resource will not be available
-                     * from the general listing endpoint of the resource type, and it
-                     * can not be used in new resources. For example, if this is an
-                     * image, you can not create new servers with this image after the
-                     * mentioned date.
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
                      *
                      * @example 2023-09-01T00:00:00+00:00
                      */
@@ -18085,7 +19117,9 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -18100,7 +19134,16 @@ export interface paths {
                    */
                   type: "public" | "private" | null;
                 }) | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -18128,17 +19171,28 @@ export interface paths {
                  */
                 placement_group?: {
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -18206,7 +19260,9 @@ export interface paths {
                   firewalls?: ({
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id?: number;
@@ -18238,7 +19294,9 @@ export interface paths {
                     dns_ptr: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id?: number;
@@ -18270,7 +19328,9 @@ export interface paths {
                       }[] | null;
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id?: number;
@@ -18286,10 +19346,14 @@ export interface paths {
                  * @example false
                  */
                 rescue_enabled: boolean;
-                /** @description Type of Server - determines how much ram, disk and cpu a Server has */
                 server_type: {
                   /**
-                   * Format: int64
+                   * @description Type of cpu architecture
+                   * @example x86
+                   * @enum {string}
+                   */
+                  architecture: "x86" | "arm";
+                  /**
                    * @description Number of cpu cores a Server of this type will have
                    * @example 1
                    */
@@ -18300,10 +19364,38 @@ export interface paths {
                    */
                   cpu_type: "shared" | "dedicated";
                   /**
-                   * @description True if Server type is deprecated
+                   * @description This field is deprecated. Use the deprecation object instead
                    * @example false
                    */
                   deprecated: boolean;
+                  /**
+                   * DeprecationInfo
+                   * @description Describes if, when and how the resource is deprecated. If this field is
+                   * set to `null` the resource is not deprecated. If a value is set, it is
+                   * considered deprecated.
+                   */
+                  deprecation?: {
+                    /**
+                     * Format: iso-8601
+                     * @description Date of the deprecation announcement.
+                     *
+                     * @example 2023-06-01T00:00:00+00:00
+                     */
+                    announced: string;
+                    /**
+                     * Format: iso-8601
+                     * @description Date of the deprecated resource removal.
+                     *
+                     * Once this date is reached, the resource will not be returned
+                     * by resource type "list" endpoint, and the resource can not be
+                     * used to create new resources. For example, if this is an
+                     * image, you can not create new servers with this image after
+                     * the mentioned date.
+                     *
+                     * @example 2023-09-01T00:00:00+00:00
+                     */
+                    unavailable_after: string;
+                  } | null;
                   /**
                    * @description Description of the Server type
                    * @example CX11
@@ -18311,7 +19403,7 @@ export interface paths {
                   description: string;
                   /**
                    * @description Disk size a Server of this type will have in GB
-                   * @example 25
+                   * @example 24
                    */
                   disk: number;
                   /**
@@ -18320,6 +19412,12 @@ export interface paths {
                    * @example 1
                    */
                   id: number;
+                  /**
+                   * Format: int64
+                   * @description Free traffic per month in bytes
+                   * @example 654321
+                   */
+                  included_traffic: number;
                   /**
                    * @description Memory a Server of this type will have in GB
                    * @example 1
@@ -18429,9 +19527,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -18445,7 +19544,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -18480,17 +19581,23 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
-          /** @description ID of the resource */
+          /** @description ID of the Resource. */
           id: number;
         };
       };
@@ -18524,9 +19631,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -18540,7 +19648,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -18563,40 +19673,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -18671,9 +19782,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -18687,7 +19799,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -18770,9 +19884,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -18786,7 +19901,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -18893,9 +20010,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -18909,7 +20027,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -18998,9 +20118,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19014,7 +20135,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19103,9 +20226,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19119,7 +20243,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19205,9 +20331,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19221,7 +20348,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19322,9 +20451,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19338,7 +20468,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19372,7 +20504,7 @@ export interface paths {
      *
      * To make sure disk content is consistent, we recommend to shut down the Server prior to creating an Image.
      *
-     * You can either create a `backup` Image that is bound to the Server and therefore will be deleted when the Server is deleted, or you can create an `snapshot` Image which is completely independent of the Server it was created from and will survive Server deletion. Backup Images are only available when the backup option is enabled for the Server. Snapshot Images are billed on a per GB basis.
+     * You can either create a `backup` Image that is bound to the Server and therefore will be deleted when the Server is deleted, or you can create a `snapshot` Image which is completely independent of the Server it was created from and will survive Server deletion. Backup Images are only available when the backup option is enabled for the Server. Snapshot Images are billed on a per GB basis.
      */
     post: {
       parameters: {
@@ -19442,9 +20574,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19458,7 +20591,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19493,7 +20628,7 @@ export interface paths {
                  */
                 bound_to: number | null;
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -19533,7 +20668,9 @@ export interface paths {
                 disk_size: number;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19542,7 +20679,16 @@ export interface paths {
                  * @example 2.3
                  */
                 image_size: number | null;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -19562,10 +20708,10 @@ export interface paths {
                  * @example 20.04
                  */
                 os_version: string | null;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -19648,9 +20794,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19664,7 +20811,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19734,9 +20883,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19750,7 +20900,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19822,9 +20974,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19838,7 +20991,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -19912,9 +21067,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -19928,7 +21084,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20000,9 +21158,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20016,7 +21175,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20115,9 +21276,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20131,7 +21293,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20206,9 +21370,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20222,7 +21387,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20292,9 +21459,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20308,7 +21476,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20378,9 +21548,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20394,7 +21565,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20480,9 +21653,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20496,7 +21670,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20568,9 +21744,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20584,7 +21761,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20654,9 +21833,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20670,7 +21850,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20750,9 +21932,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20766,7 +21949,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20844,9 +22029,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20860,7 +22046,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -20938,9 +22126,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -20954,7 +22143,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -21026,9 +22217,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -21042,7 +22234,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -21174,15 +22368,21 @@ export interface paths {
         query?: {
           /** @description Can be used multiple times. */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc";
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
           /** @description Can be used to filter SSH keys by their fingerprint. The response will only contain the SSH key matching the specified fingerprint. */
           fingerprint?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -21193,40 +22393,41 @@ export interface paths {
             "application/json": {
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -21234,7 +22435,7 @@ export interface paths {
               };
               ssh_keys: {
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -21245,11 +22446,22 @@ export interface paths {
                   fingerprint: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -21299,7 +22511,7 @@ export interface paths {
             "application/json": {
               ssh_key: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -21310,11 +22522,22 @@ export interface paths {
                 fingerprint: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -21354,7 +22577,7 @@ export interface paths {
             "application/json": {
               ssh_key: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -21365,11 +22588,22 @@ export interface paths {
                 fingerprint: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -21427,7 +22661,7 @@ export interface paths {
             "application/json": {
               ssh_key: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -21438,11 +22672,22 @@ export interface paths {
                 fingerprint: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -21491,15 +22736,24 @@ export interface paths {
         query?: {
           /** @description Can be used multiple times. The response will only contain Volumes matching the status. */
           status?: "available" | "creating";
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
-          /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+          /**
+           * @description Filter resources by labels. The response will only contain resources matching the
+           * label selector. For more information, see "[Label Selector](#label-selector)".
+           */
           label_selector?: string;
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -21510,40 +22764,41 @@ export interface paths {
             "application/json": {
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -21551,7 +22806,7 @@ export interface paths {
               };
               volumes: ({
                   /**
-                   * @description Point in time when the Resource was created (in ISO-8601 format)
+                   * @description Point in time when the Resource was created (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   created: string;
@@ -21562,11 +22817,22 @@ export interface paths {
                   format: string | null;
                   /**
                    * Format: int64
-                   * @description ID of the Resource
+                   * @description ID of the Resource.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
-                  /** @description User-defined labels (key-value pairs) */
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
                   labels: {
                     [key: string]: string;
                   };
@@ -21626,10 +22892,10 @@ export interface paths {
                    * @example my-resource
                    */
                   name: string;
-                  /** @description Protection configuration for the Resource */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Resource from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -21764,9 +23030,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -21780,7 +23047,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -21826,9 +23095,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -21842,7 +23112,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -21865,7 +23137,7 @@ export interface paths {
                 })[];
               volume: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -21876,11 +23148,22 @@ export interface paths {
                 format: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -21940,10 +23223,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -21980,15 +23263,24 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+          /**
+           * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+           * actions matching the specified IDs.
+           */
           id?: number;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
       };
@@ -22022,9 +23314,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -22038,7 +23331,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -22061,40 +23356,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -22149,9 +23445,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -22165,7 +23462,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -22211,7 +23510,7 @@ export interface paths {
             "application/json": {
               volume: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -22222,11 +23521,22 @@ export interface paths {
                 format: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -22286,10 +23596,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -22353,7 +23663,7 @@ export interface paths {
             "application/json": {
               volume: {
                 /**
-                 * @description Point in time when the Resource was created (in ISO-8601 format)
+                 * @description Point in time when the Resource was created (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 created: string;
@@ -22364,11 +23674,22 @@ export interface paths {
                 format: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource
+                 * @description ID of the Resource.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
-                /** @description User-defined labels (key-value pairs) */
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
                 labels: {
                   [key: string]: string;
                 };
@@ -22428,10 +23749,10 @@ export interface paths {
                  * @example my-resource
                  */
                 name: string;
-                /** @description Protection configuration for the Resource */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Resource from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -22486,13 +23807,19 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort actions by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-          /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+          /**
+           * @description Filter the actions by status. Can be used multiple times. The response will only
+           * contain actions matching the specified statuses.
+           */
           status?: "running" | "success" | "error";
-          /** @description Page to load. */
+          /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
-          /** @description Items to load per page. */
+          /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
         };
         path: {
@@ -22530,9 +23857,10 @@ export interface paths {
                    */
                   finished: string | null;
                   /**
-                   * Action ID
                    * Format: int64
-                   * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                   * @description ID of the Action.
+                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                   *
                    * @example 42
                    */
                   id: number;
@@ -22546,7 +23874,9 @@ export interface paths {
                   resources: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource
+                       * @description ID of the Resource.
+                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                       *
                        * @example 42
                        */
                       id: number;
@@ -22569,40 +23899,41 @@ export interface paths {
                 })[];
               /** ListMeta */
               meta?: {
+                /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
                    * Format: int64
-                   * @description ID of the last page available. Can be null if the current page is the last one.
+                   * @description Page number of the last page available. Can be null if the current page is the last one.
                    * @example 4
                    */
                   last_page: number | null;
                   /**
                    * Format: int64
-                   * @description ID of the next page. Can be null if the current page is the last one.
+                   * @description Page number of the next page. Can be null if the current page is the last one.
                    * @example 4
                    */
                   next_page: number | null;
                   /**
                    * Format: int64
-                   * @description Current page number
+                   * @description Current page number.
                    * @example 3
                    */
                   page: number;
                   /**
                    * Format: int64
-                   * @description Maximum number of items shown per page in the response
+                   * @description Maximum number of entries returned per page.
                    * @example 25
                    */
                   per_page: number;
                   /**
                    * Format: int64
-                   * @description ID of the previous page. Can be null if the current page is the first one.
+                   * @description Page number of the previous page. Can be null if the current page is the first one.
                    * @example 2
                    */
                   previous_page: number | null;
                   /**
                    * Format: int64
-                   * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+                   * @description Total number of entries that exist for this query. Can be null if unknown.
                    * @example 100
                    */
                   total_entries: number | null;
@@ -22674,9 +24005,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -22690,7 +24022,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -22771,9 +24105,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -22787,7 +24122,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -22857,9 +24194,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -22873,7 +24211,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -22954,9 +24294,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -22970,7 +24311,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -23042,9 +24385,10 @@ export interface paths {
                  */
                 finished: string | null;
                 /**
-                 * Action ID
                  * Format: int64
-                 * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+                 * @description ID of the Action.
+                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                 *
                  * @example 42
                  */
                 id: number;
@@ -23058,7 +24402,9 @@ export interface paths {
                 resources: {
                     /**
                      * Format: int64
-                     * @description ID of the Resource
+                     * @description ID of the Resource.
+                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+                     *
                      * @example 42
                      */
                     id: number;
@@ -23117,9 +24463,10 @@ export interface components {
        */
       finished: string | null;
       /**
-       * Action ID
        * Format: int64
-       * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+       * @description ID of the Action.
+       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+       *
        * @example 42
        */
       id: number;
@@ -23133,7 +24480,9 @@ export interface components {
       resources: {
           /**
            * Format: int64
-           * @description ID of the Resource
+           * @description ID of the Resource.
+           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+           *
            * @example 42
            */
           id: number;
@@ -23155,9 +24504,10 @@ export interface components {
       status: "success" | "running" | "error";
     };
     /**
-     * Action ID
      * Format: int64
-     * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+     * @description ID of the Action.
+     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+     *
      * @example 42
      */
     ActionID: number;
@@ -23188,9 +24538,10 @@ export interface components {
            */
           finished: string | null;
           /**
-           * Action ID
            * Format: int64
-           * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+           * @description ID of the Action.
+           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+           *
            * @example 42
            */
           id: number;
@@ -23204,7 +24555,9 @@ export interface components {
           resources: {
               /**
                * Format: int64
-               * @description ID of the Resource
+               * @description ID of the Resource.
+               * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+               *
                * @example 42
                */
               id: number;
@@ -23227,40 +24580,41 @@ export interface components {
         })[];
       /** ListMeta */
       meta?: {
+        /** @description See "[Pagination](#pagination)" for more information. */
         pagination: {
           /**
            * Format: int64
-           * @description ID of the last page available. Can be null if the current page is the last one.
+           * @description Page number of the last page available. Can be null if the current page is the last one.
            * @example 4
            */
           last_page: number | null;
           /**
            * Format: int64
-           * @description ID of the next page. Can be null if the current page is the last one.
+           * @description Page number of the next page. Can be null if the current page is the last one.
            * @example 4
            */
           next_page: number | null;
           /**
            * Format: int64
-           * @description Current page number
+           * @description Current page number.
            * @example 3
            */
           page: number;
           /**
            * Format: int64
-           * @description Maximum number of items shown per page in the response
+           * @description Maximum number of entries returned per page.
            * @example 25
            */
           per_page: number;
           /**
            * Format: int64
-           * @description ID of the previous page. Can be null if the current page is the first one.
+           * @description Page number of the previous page. Can be null if the current page is the first one.
            * @example 2
            */
           previous_page: number | null;
           /**
            * Format: int64
-           * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+           * @description Total number of entries that exist for this query. Can be null if unknown.
            * @example 100
            */
           total_entries: number | null;
@@ -23293,9 +24647,10 @@ export interface components {
        */
       finished: string | null;
       /**
-       * Action ID
        * Format: int64
-       * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+       * @description ID of the Action.
+       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+       *
        * @example 42
        */
       id: number;
@@ -23309,7 +24664,9 @@ export interface components {
       resources: {
           /**
            * Format: int64
-           * @description ID of the Resource
+           * @description ID of the Resource.
+           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+           *
            * @example 42
            */
           id: number;
@@ -23358,9 +24715,10 @@ export interface components {
          */
         finished: string | null;
         /**
-         * Action ID
          * Format: int64
-         * @description ID of the Action. Limited to 52 bits to ensure compatability with JSON double precision floats.
+         * @description ID of the Action.
+         * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+         *
          * @example 42
          */
         id: number;
@@ -23374,7 +24732,9 @@ export interface components {
         resources: {
             /**
              * Format: int64
-             * @description ID of the Resource
+             * @description ID of the Resource.
+             * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+             *
              * @example 42
              */
             id: number;
@@ -23397,92 +24757,250 @@ export interface components {
       };
     };
     /**
+     * @description Point in time when the Resource was created (in ISO-8601 format).
+     * @example 2016-01-30T23:55:00+00:00
+     */
+    Created: string;
+    /**
      * DeprecationInfo
-     * @description Describes if, when & how the resources was deprecated. If this field is
-     * set to `null` the resource is not deprecated. If it has a value, it is
+     * @description Describes if, when and how the resource is deprecated. If this field is
+     * set to `null` the resource is not deprecated. If a value is set, it is
      * considered deprecated.
      */
     DeprecationInfo: {
       /**
        * Format: iso-8601
-       * @description Date of when the deprecation was announced.
+       * @description Date of the deprecation announcement.
        *
        * @example 2023-06-01T00:00:00+00:00
        */
       announced: string;
       /**
        * Format: iso-8601
-       * @description After the time in this field, the resource will not be available
-       * from the general listing endpoint of the resource type, and it
-       * can not be used in new resources. For example, if this is an
-       * image, you can not create new servers with this image after the
-       * mentioned date.
+       * @description Date of the deprecated resource removal.
+       *
+       * Once this date is reached, the resource will not be returned
+       * by resource type "list" endpoint, and the resource can not be
+       * used to create new resources. For example, if this is an
+       * image, you can not create new servers with this image after
+       * the mentioned date.
        *
        * @example 2023-09-01T00:00:00+00:00
        */
       unavailable_after: string;
     } | null;
+    /**
+     * @description Description of the Resource.
+     * @example This describes my resource
+     */
+    Description: string | null;
+    /**
+     * Format: int64
+     * @description ID of the Resource.
+     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
+     *
+     * @example 42
+     */
+    ID: number;
+    /**
+     * @description IP address.
+     * @example 131.232.99.1
+     */
+    IP: string;
+    /**
+     * @description User-defined labels (`key/value` pairs) for the Resource.
+     * For more information, see "[Labels](#labels)".
+     *
+     * @example {
+     *   "environment": "prod",
+     *   "example.com/my": "label",
+     *   "just-a-key": ""
+     * }
+     */
+    Labels: {
+      [key: string]: string;
+    };
     /** ListMeta */
     ListMeta: {
+      /** @description See "[Pagination](#pagination)" for more information. */
       pagination: {
         /**
          * Format: int64
-         * @description ID of the last page available. Can be null if the current page is the last one.
+         * @description Page number of the last page available. Can be null if the current page is the last one.
          * @example 4
          */
         last_page: number | null;
         /**
          * Format: int64
-         * @description ID of the next page. Can be null if the current page is the last one.
+         * @description Page number of the next page. Can be null if the current page is the last one.
          * @example 4
          */
         next_page: number | null;
         /**
          * Format: int64
-         * @description Current page number
+         * @description Current page number.
          * @example 3
          */
         page: number;
         /**
          * Format: int64
-         * @description Maximum number of items shown per page in the response
+         * @description Maximum number of entries returned per page.
          * @example 25
          */
         per_page: number;
         /**
          * Format: int64
-         * @description ID of the previous page. Can be null if the current page is the first one.
+         * @description Page number of the previous page. Can be null if the current page is the first one.
          * @example 2
          */
         previous_page: number | null;
         /**
          * Format: int64
-         * @description The total number of entries that exist in the database for this query. Nullable if unknown.
+         * @description Total number of entries that exist for this query. Can be null if unknown.
          * @example 100
          */
         total_entries: number | null;
       };
     };
+    /**
+     * @description Name of the Resource. Must be unique per Project.
+     * @example my-resource
+     */
+    Name: string;
+    /** @description See "[Pagination](#pagination)" for more information. */
+    PaginationOffsetPagination: {
+      /**
+       * Format: int64
+       * @description Page number of the last page available. Can be null if the current page is the last one.
+       * @example 4
+       */
+      last_page: number | null;
+      /**
+       * Format: int64
+       * @description Page number of the next page. Can be null if the current page is the last one.
+       * @example 4
+       */
+      next_page: number | null;
+      /**
+       * Format: int64
+       * @description Current page number.
+       * @example 3
+       */
+      page: number;
+      /**
+       * Format: int64
+       * @description Maximum number of entries returned per page.
+       * @example 25
+       */
+      per_page: number;
+      /**
+       * Format: int64
+       * @description Page number of the previous page. Can be null if the current page is the first one.
+       * @example 2
+       */
+      previous_page: number | null;
+      /**
+       * Format: int64
+       * @description Total number of entries that exist for this query. Can be null if unknown.
+       * @example 100
+       */
+      total_entries: number | null;
+    };
+    Prices: {
+      /**
+       * @description Name of the Location the price is for.
+       * @example fsn1
+       */
+      location: string;
+      /** @description Hourly costs for a Resource in this Location. */
+      price_hourly: {
+        /**
+         * Format: decimal
+         * @description Price with VAT added.
+         * @example 1.1900000000000000
+         */
+        gross: string;
+        /**
+         * Format: decimal
+         * @description Price without VAT.
+         * @example 1.0000000000
+         */
+        net: string;
+      };
+      /** @description Monthly costs for a Resource in this Location. */
+      price_monthly: {
+        /**
+         * Format: decimal
+         * @description Price with VAT added.
+         * @example 1.1900000000000000
+         */
+        gross: string;
+        /**
+         * Format: decimal
+         * @description Price without VAT.
+         * @example 1.0000000000
+         */
+        net: string;
+      };
+    };
+    /** @description Protection configuration for the Resource. */
+    Protection: {
+      /**
+       * @description Prevent the Resource from being deleted.
+       * @example false
+       */
+      delete: boolean;
+    };
+    /**
+     * @description Point in time (in ISO-8601 format).
+     * @example 2016-01-30T23:55:00+00:00
+     */
+    Timestamp: string;
+    /**
+     * @description Point in time (in ISO-8601 format).
+     * @example 2016-01-30T23:55:00+00:00
+     */
+    TimestampNullable: string | null;
   };
   responses: never;
   parameters: {
     /** @description ID of the Action. */
     PathActionID: number;
-    /** @description Can be used multiple times, the response will contain only Actions with specified IDs. */
+    /** @description ID of the Resource. */
+    PathID: number;
+    /**
+     * @description Filter the actions by ID. Can be used multiple times. The response will only contain
+     * actions matching the specified IDs.
+     */
     QueryActionID?: number;
-    /** @description Can be used multiple times. */
+    /**
+     * @description Sort actions by field and direction. Can be used multiple times. For more
+     * information, see "[Sorting](#sorting)".
+     */
     QueryActionSort?: "id" | "id:asc" | "id:desc" | "command" | "command:asc" | "command:desc" | "status" | "status:asc" | "status:desc" | "started" | "started:asc" | "started:desc" | "finished" | "finished:asc" | "finished:desc";
-    /** @description Can be used multiple times, the response will contain only Actions with specified statuses */
+    /**
+     * @description Filter the actions by status. Can be used multiple times. The response will only
+     * contain actions matching the specified statuses.
+     */
     QueryActionStatus?: "running" | "success" | "error";
-    /** @description Can be used to filter resources by labels. The response will only contain resources matching the label selector. */
+    /**
+     * @description Filter resources by labels. The response will only contain resources matching the
+     * label selector. For more information, see "[Label Selector](#label-selector)".
+     */
     QueryLabelSelector?: string;
-    /** @description Can be used to filter resources by their name. The response will only contain the resources matching the specified name. */
+    /**
+     * @description Filter resources by their name. The response will only contain the resources
+     * matching the specified name.
+     */
     QueryName?: string;
-    /** @description Page to load. */
+    /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
     QueryPaginationPage?: number;
-    /** @description Items to load per page. */
+    /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
     QueryPaginationPerPage?: number;
-    /** @description Can be used multiple times. */
+    /**
+     * @description Sort resources by field and direction. Can be used multiple times. For more
+     * information, see "[Sorting](#sorting)".
+     */
     QuerySort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
   };
   requestBodies: never;
