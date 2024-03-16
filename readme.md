@@ -1,4 +1,4 @@
-## hetzner-api-client
+## @hetzner/api
 
 This package is **auto-generated** from Hetzner's OpenAPI specification.
 
@@ -7,17 +7,17 @@ This package is **auto-generated** from Hetzner's OpenAPI specification.
 #### Deno
 
 ```ts
-import { createClient } from 'https://esm.sh/@boywithkeyboard/hetzner-api-client'
+import { createClient } from 'https://esm.sh/@hetzner/api'
 ```
 
 #### Node.js
 
 ```bash
-npm i @boywithkeyboard/hetzner-api-client
+npm i @hetzner/api
 ```
 
 ```ts
-import { createClient } from '@boywithkeyboard/hetzner-api-client'
+import { createClient } from '@hetzner/api'
 ```
 
 ### Usage

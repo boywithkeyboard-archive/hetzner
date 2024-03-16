@@ -1,11 +1,11 @@
 {
-  "name": "@boywithkeyboard/hetzner-api-client",
-  "version": "1.20240316.0",
+  "name": "@hetzner/api",
+  "version": "0.0.0",
   "author": "Samuel Kopp (https://samuelkopp.de)",
   "license": "MIT",
   "description": "A preconfigured, up-to-date OpenAPI client for Hetzner.",
   "funding": "https://github.com/sponsors/boywithkeyboard",
-  "repository": "github:boywithkeyboard/hetzner-api-client",
+  "repository": "github:boywithkeyboard/hetzner",
   "keywords": [
     "hetzner",
     "openapi"
