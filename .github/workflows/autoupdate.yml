@@ -1,4 +1,4 @@
-name: update
+name: autoupdate
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
+  autoupdate:
     runs-on: ubuntu-latest
 
     permissions:
@@ -41,7 +41,7 @@ jobs:
 
             const version = `1.${year + month + day}.0`
 
-            core.exportVariable('VERSION', version)
+            core.exportVariable('VERSION', '@hetzner/api@' + version)
 
             const packageJson = JSON.parse(readFileSync('./package.json', { encoding: 'utf-8' }))
 

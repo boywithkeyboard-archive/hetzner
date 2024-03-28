@@ -7,6 +7,6 @@ updates:
     versioning-strategy: increase
 
   - package-ecosystem: github-actions
-    directory: /
+    directory: /api
     schedule:
       interval: daily
