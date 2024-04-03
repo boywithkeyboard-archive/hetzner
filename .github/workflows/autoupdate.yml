@@ -57,7 +57,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
-          package: api
+          package: ./api
           provenance: true
 
       - name: Commit Changes
