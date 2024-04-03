@@ -29,9 +29,9 @@ jobs:
           script: |
             const { readFileSync, writeFileSync } = require('node:fs')
 
-            const year = new Date().getFullYear().toString()
-            let month = new Date().getMonth() + 1
-            let day = new Date().getDate()
+            const year = new Date().getUTCFullYear().toString()
+            let month = new Date().getUTCMonth() + 1
+            let day = new Date().getUTCDate()
 
             if (month < 10)
               month = '0' + month.toString()
