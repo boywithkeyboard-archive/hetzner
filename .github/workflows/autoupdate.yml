@@ -21,7 +21,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm i
+        run: cd api && npm i
       
       - name: Determine Version
         uses: actions/github-script@v7
@@ -50,13 +50,14 @@ jobs:
             writeFileSync('./package.json', JSON.stringify(packageJson, null, 2))
 
       - name: Build Package
-        run: npm run build
+        run: cd api && npm run build
 
       - name: Publish Package
         uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
+          package: api
           provenance: true
 
       - name: Commit Changes
