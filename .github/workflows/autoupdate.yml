@@ -41,10 +41,11 @@ jobs:
 
             const version = `1.${year + month + day}.0`
 
+            core.exportVariable('PACKAGE_VERSION', version)
             core.exportVariable('VERSION', '@hetzner/api@' + version)
 
       - name: Set Package Version
-        run: cd api && npm version $VERSION
+        run: cd api && npm version $PACKAGE_VERSION
 
       - name: Build Package
         run: cd api && npm run build
