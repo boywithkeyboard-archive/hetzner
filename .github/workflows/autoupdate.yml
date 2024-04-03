@@ -21,7 +21,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: cd api && npm i
+        run: cd api && npm ci
       
       - name: Determine Version
         uses: actions/github-script@v7
@@ -43,11 +43,8 @@ jobs:
 
             core.exportVariable('VERSION', '@hetzner/api@' + version)
 
-            const packageJson = JSON.parse(readFileSync('./api/package.json', { encoding: 'utf-8' }))
-
-            packageJson.version = version
-
-            writeFileSync('./api/package.json', JSON.stringify(packageJson, null, 2))
+      - name: Set Package Version
+        run: cd api && npm version $VERSION
 
       - name: Build Package
         run: cd api && npm run build
