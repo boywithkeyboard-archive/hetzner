@@ -5,40 +5,22 @@
   "license": "MIT",
   "description": "A preconfigured, up-to-date OpenAPI client for Hetzner.",
   "funding": "https://github.com/sponsors/boywithkeyboard",
-  "repository": "github:boywithkeyboard/hetzner",
+  "repository": "boywithkeyboard/hetzner",
   "keywords": [
     "hetzner",
     "openapi"
   ],
-  "main": "./build/main.cjs",
-  "module": "./build/main.mjs",
-  "types": "./build/main.d.ts",
-  "files": [
-    "./build"
-  ],
-  "exports": {
-    ".": {
-      "import": {
-        "default": "./build/main.mjs",
-        "types": "./build/main.d.ts"
-      },
-      "require": {
-        "default": "./build/main.cjs",
-        "types": "./build/main.d.ts"
-      }
-    }
-  },
   "scripts": {
-    "download": "openapi-typescript https://docs.hetzner.cloud/spec.json -o ./spec.ts",
+    "download": "openapi-typescript https://docs.hetzner.cloud/spec.json -o ./src/spec.ts",
     "prebuild": "cd .. && node .github/copyLicense.mjs",
-    "build": "npm run prebuild && npm run download && tsc && esbuild main.ts --bundle --minify --format=esm --outfile=build/main.mjs && esbuild main.ts --bundle --minify --format=cjs --outfile=build/main.cjs"
+    "build": "npm run prebuild && npm run download && builder index.ts:index.js"
   },
   "dependencies": {
     "openapi-fetch": "^0.9.3"
   },
   "devDependencies": {
+    "@boywithkeyboard/builder": "^0.14.0",
     "@types/node": "^20.12.4",
-    "esbuild": "^0.20.2",
     "openapi-typescript": "^6.7.5",
     "typescript": "^5.4.3"
   },
