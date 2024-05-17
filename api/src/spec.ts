@@ -41,19 +41,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -66,46 +66,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -160,7 +156,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Action. */
           id: number;
         };
       };
@@ -172,19 +168,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -197,43 +193,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -305,9 +297,7 @@ export interface paths {
                   fingerprint: string | null;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Certificate.
                    * @example 42
                    */
                   id: number;
@@ -384,7 +374,7 @@ export interface paths {
                     }[];
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -455,8 +445,19 @@ export interface paths {
              * @example null
              */
             domain_names?: string[];
-            /** @description User-defined labels (key-value pairs) */
-            labels?: Record<string, never>;
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description Name of the Certificate
              * @example my website cert
@@ -486,19 +487,19 @@ export interface paths {
               /** ActionNullable */
               action?: ({
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -511,43 +512,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               }) | null;
               /** Certificate */
               certificate: {
@@ -578,9 +575,7 @@ export interface paths {
                 fingerprint: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Certificate.
                  * @example 42
                  */
                 id: number;
@@ -698,19 +693,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -723,46 +718,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -829,19 +820,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -854,43 +845,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -906,7 +893,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Certificate. */
           id: number;
         };
       };
@@ -944,9 +931,7 @@ export interface paths {
                 fingerprint: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Certificate.
                  * @example 42
                  */
                 id: number;
@@ -1038,7 +1023,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Certificate. */
           id: number;
         };
       };
@@ -1046,12 +1031,18 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New Certificate name
              * @example my website cert
@@ -1094,9 +1085,7 @@ export interface paths {
                 fingerprint: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Certificate.
                  * @example 42
                  */
                 id: number;
@@ -1184,7 +1173,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Certificate. */
           id: number;
         };
       };
@@ -1222,7 +1211,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Certificate. */
           id: number;
         };
       };
@@ -1233,19 +1222,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -1258,46 +1247,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -1367,7 +1352,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Certificate */
+          /** @description ID of the Certificate. */
           id: number;
         };
       };
@@ -1379,19 +1364,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -1404,43 +1389,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -1456,9 +1437,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Certificate */
+          /** @description ID of the Certificate. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -1470,19 +1451,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -1495,43 +1476,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -1542,14 +1519,20 @@ export interface paths {
   "/datacenters": {
     /**
      * Get all Datacenters
-     * @description Returns all Datacenter objects.
+     * @description Returns all Datacenters.
      */
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter Datacenters by their name. The response will only contain the Datacenter matching the specified name. When the name does not match the Datacenter name format, an `invalid_input` error is returned. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc";
           /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
@@ -1558,79 +1541,88 @@ export interface paths {
         };
       };
       responses: {
-        /** @description The reply contains the `datacenters` and `recommendation` keys */
+        /** @description Contains the queried Datacenters. */
         200: {
           content: {
             "application/json": {
+              /** @description List of Datacenters. */
               datacenters: {
                   /**
-                   * @description Description of the Datacenter
+                   * @description Human readable description of the Datacenter.
                    * @example Falkenstein DC Park 8
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Datacenter.
                    * @example 42
                    */
                   id: number;
                   /** @description The location of the datacenter. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
-                   * @description Unique identifier of the Datacenter
+                   * @description Unique identifier of the Datacenter.
                    * @example fsn1-dc8
                    */
                   name: string;
-                  /** @description The Server types the Datacenter can handle */
+                  /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                   server_types: {
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                     *
+                     * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                     * but are supported in this Datacenter are listed as `supported`.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -1639,7 +1631,10 @@ export interface paths {
                      */
                     available: number[];
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                     *
+                     * Existing Servers can be migrated to the Server Types listed here.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -1648,7 +1643,11 @@ export interface paths {
                      */
                     available_for_migration: number[];
                     /**
-                     * @description IDs of Server types that are supported in the Datacenter
+                     * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                     *
+                     * Those Server Types are generally available in this Datacenter, but might be
+                     * temporarily out of stock.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -1702,7 +1701,7 @@ export interface paths {
               };
               /**
                * Format: int64
-               * @description The Datacenter which is recommended to be used to create new Servers.
+               * @description Recommended Datacenter ID for new Resources.
                * @example 1
                */
               recommendation: number;
@@ -1715,89 +1714,97 @@ export interface paths {
   "/datacenters/{id}": {
     /**
      * Get a Datacenter
-     * @description Returns a specific Datacenter object.
+     * @description Returns a single Datacenter.
      */
     get: {
       parameters: {
         path: {
-          /** @description ID of Datacenter */
+          /** @description ID of the Datacenter. */
           id: number;
         };
       };
       responses: {
-        /** @description The `datacenter` key in the reply contains a Datacenter object with this structure */
+        /** @description Contains the queried Datacenter. */
         200: {
           content: {
             "application/json": {
               datacenter: {
                 /**
-                 * @description Description of the Datacenter
+                 * @description Human readable description of the Datacenter.
                  * @example Falkenstein DC Park 8
                  */
                 description: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Datacenter.
                  * @example 42
                  */
                 id: number;
                 /** @description The location of the datacenter. */
                 location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
                 };
                 /**
-                 * @description Unique identifier of the Datacenter
+                 * @description Unique identifier of the Datacenter.
                  * @example fsn1-dc8
                  */
                 name: string;
-                /** @description The Server types the Datacenter can handle */
+                /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                 server_types: {
                   /**
-                   * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                   * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                   *
+                   * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                   * but are supported in this Datacenter are listed as `supported`.
+                   *
                    * @example [
                    *   1,
                    *   2,
@@ -1806,7 +1813,10 @@ export interface paths {
                    */
                   available: number[];
                   /**
-                   * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                   * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                   *
+                   * Existing Servers can be migrated to the Server Types listed here.
+                   *
                    * @example [
                    *   1,
                    *   2,
@@ -1815,7 +1825,11 @@ export interface paths {
                    */
                   available_for_migration: number[];
                   /**
-                   * @description IDs of Server types that are supported in the Datacenter
+                   * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                   *
+                   * Those Server Types are generally available in this Datacenter, but might be
+                   * temporarily out of stock.
+                   *
                    * @example [
                    *   1,
                    *   2,
@@ -1871,9 +1885,7 @@ export interface paths {
                           server?: {
                             /**
                              * Format: int64
-                             * @description ID of the Resource.
-                             * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                             *
+                             * @description ID of the Server.
                              * @example 42
                              */
                             id: number;
@@ -1895,9 +1907,7 @@ export interface paths {
                       server?: {
                         /**
                          * Format: int64
-                         * @description ID of the Resource.
-                         * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                         *
+                         * @description ID of the Server.
                          * @example 42
                          */
                         id: number;
@@ -1916,9 +1926,7 @@ export interface paths {
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Firewall.
                    * @example 42
                    */
                   id: number;
@@ -1944,16 +1952,21 @@ export interface paths {
                       /** @description Description of the Rule */
                       description?: string | null;
                       /**
-                       * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
-                       * @example [
-                       *   "28.239.13.1/32",
-                       *   "28.239.14.0/24",
-                       *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
-                       * ]
+                       * @description List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)
+                       * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                       * blocks at most.
+                       *
+                       * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                       * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                       * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                       * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                       *
+                       * @example []
                        */
-                      destination_ips?: string[];
+                      destination_ips: string[];
                       /**
                        * @description Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.
+                       * @example in
                        * @enum {string}
                        */
                       direction: "in" | "out";
@@ -1961,25 +1974,33 @@ export interface paths {
                        * @description Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g `1024-5000`.
                        * @example 80
                        */
-                      port?: string;
+                      port: string | null;
                       /**
                        * @description Type of traffic to allow
                        * @enum {string}
                        */
                       protocol: "tcp" | "udp" | "icmp" | "esp" | "gre";
                       /**
-                       * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
+                       * @description List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)
+                       * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                       * blocks at most.
+                       *
+                       * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                       * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                       * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                       * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                       *
                        * @example [
                        *   "28.239.13.1/32",
                        *   "28.239.14.0/24",
                        *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                        * ]
                        */
-                      source_ips?: string[];
+                      source_ips: string[];
                     })[];
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -2062,15 +2083,32 @@ export interface paths {
                  */
                 type: "server" | "label_selector";
               })[];
-            /** @description User-defined labels (key-value pairs) */
-            labels?: Record<string, never>;
             /**
-             * @description Name of the Firewall
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
+            labels?: {
+              [key: string]: string;
+            };
+            /**
+             * @description Name of the Firewall.
+             *
+             * Limited to a maximum of 128 characters.
+             *
              * @example Corporate Intranet Protection
              */
             name: string;
             /**
-             * @description Array of rules
+             * @description Array of rules.
+             *
+             * Limited to a maximum of 50 rules per Firewall.
+             *
              * @example [
              *   {
              *     "direction": "in",
@@ -2088,16 +2126,21 @@ export interface paths {
                 /** @description Description of the Rule */
                 description?: string | null;
                 /**
-                 * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
-                 * @example [
-                 *   "28.239.13.1/32",
-                 *   "28.239.14.0/24",
-                 *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
-                 * ]
+                 * @description List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)
+                 * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                 * blocks at most.
+                 *
+                 * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                 * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                 * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                 * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                 *
+                 * @example []
                  */
                 destination_ips?: string[];
                 /**
                  * @description Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.
+                 * @example in
                  * @enum {string}
                  */
                 direction: "in" | "out";
@@ -2112,7 +2155,15 @@ export interface paths {
                  */
                 protocol: "tcp" | "udp" | "icmp" | "esp" | "gre";
                 /**
-                 * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
+                 * @description List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)
+                 * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                 * blocks at most.
+                 *
+                 * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                 * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                 * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                 * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                 *
                  * @example [
                  *   "28.239.13.1/32",
                  *   "28.239.14.0/24",
@@ -2175,19 +2226,19 @@ export interface paths {
                */
               actions?: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -2200,54 +2251,48 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
-              /** Firewall */
+              /** FirewallResponse */
               firewall?: {
                 applied_to: ({
                     applied_to_resources?: {
                         server?: {
                           /**
                            * Format: int64
-                           * @description ID of the Resource.
-                           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                           *
+                           * @description ID of the Server.
                            * @example 42
                            */
                           id: number;
@@ -2269,9 +2314,7 @@ export interface paths {
                     server?: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Server.
                        * @example 42
                        */
                       id: number;
@@ -2290,9 +2333,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Firewall.
                  * @example 42
                  */
                 id: number;
@@ -2318,16 +2359,21 @@ export interface paths {
                     /** @description Description of the Rule */
                     description?: string | null;
                     /**
-                     * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
-                     * @example [
-                     *   "28.239.13.1/32",
-                     *   "28.239.14.0/24",
-                     *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
-                     * ]
+                     * @description List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)
+                     * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                     * blocks at most.
+                     *
+                     * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                     * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                     * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                     * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                     *
+                     * @example []
                      */
-                    destination_ips?: string[];
+                    destination_ips: string[];
                     /**
                      * @description Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.
+                     * @example in
                      * @enum {string}
                      */
                     direction: "in" | "out";
@@ -2335,21 +2381,29 @@ export interface paths {
                      * @description Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g `1024-5000`.
                      * @example 80
                      */
-                    port?: string;
+                    port: string | null;
                     /**
                      * @description Type of traffic to allow
                      * @enum {string}
                      */
                     protocol: "tcp" | "udp" | "icmp" | "esp" | "gre";
                     /**
-                     * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
+                     * @description List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)
+                     * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                     * blocks at most.
+                     *
+                     * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                     * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                     * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                     * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                     *
                      * @example [
                      *   "28.239.13.1/32",
                      *   "28.239.14.0/24",
                      *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                      * ]
                      */
-                    source_ips?: string[];
+                    source_ips: string[];
                   })[];
               };
             };
@@ -2394,19 +2448,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -2419,46 +2473,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -2525,19 +2575,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -2550,43 +2600,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -2602,7 +2648,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Firewall. */
           id: number;
         };
       };
@@ -2611,16 +2657,14 @@ export interface paths {
         200: {
           content: {
             "application/json": {
-              /** Firewall */
+              /** FirewallResponse */
               firewall: {
                 applied_to: ({
                     applied_to_resources?: {
                         server?: {
                           /**
                            * Format: int64
-                           * @description ID of the Resource.
-                           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                           *
+                           * @description ID of the Server.
                            * @example 42
                            */
                           id: number;
@@ -2642,9 +2686,7 @@ export interface paths {
                     server?: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Server.
                        * @example 42
                        */
                       id: number;
@@ -2663,9 +2705,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Firewall.
                  * @example 42
                  */
                 id: number;
@@ -2691,16 +2731,21 @@ export interface paths {
                     /** @description Description of the Rule */
                     description?: string | null;
                     /**
-                     * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
-                     * @example [
-                     *   "28.239.13.1/32",
-                     *   "28.239.14.0/24",
-                     *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
-                     * ]
+                     * @description List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)
+                     * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                     * blocks at most.
+                     *
+                     * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                     * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                     * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                     * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                     *
+                     * @example []
                      */
-                    destination_ips?: string[];
+                    destination_ips: string[];
                     /**
                      * @description Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.
+                     * @example in
                      * @enum {string}
                      */
                     direction: "in" | "out";
@@ -2708,21 +2753,29 @@ export interface paths {
                      * @description Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g `1024-5000`.
                      * @example 80
                      */
-                    port?: string;
+                    port: string | null;
                     /**
                      * @description Type of traffic to allow
                      * @enum {string}
                      */
                     protocol: "tcp" | "udp" | "icmp" | "esp" | "gre";
                     /**
-                     * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
+                     * @description List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)
+                     * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                     * blocks at most.
+                     *
+                     * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                     * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                     * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                     * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                     *
                      * @example [
                      *   "28.239.13.1/32",
                      *   "28.239.14.0/24",
                      *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                      * ]
                      */
-                    source_ips?: string[];
+                    source_ips: string[];
                   })[];
               };
             };
@@ -2741,7 +2794,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Firewall. */
           id: number;
         };
       };
@@ -2749,12 +2802,18 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New Firewall name
              * @example new-name
@@ -2768,16 +2827,14 @@ export interface paths {
         200: {
           content: {
             "application/json": {
-              /** Firewall */
+              /** FirewallResponse */
               firewall: {
                 applied_to: ({
                     applied_to_resources?: {
                         server?: {
                           /**
                            * Format: int64
-                           * @description ID of the Resource.
-                           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                           *
+                           * @description ID of the Server.
                            * @example 42
                            */
                           id: number;
@@ -2799,9 +2856,7 @@ export interface paths {
                     server?: {
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Server.
                        * @example 42
                        */
                       id: number;
@@ -2820,9 +2875,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Firewall.
                  * @example 42
                  */
                 id: number;
@@ -2848,16 +2901,21 @@ export interface paths {
                     /** @description Description of the Rule */
                     description?: string | null;
                     /**
-                     * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
-                     * @example [
-                     *   "28.239.13.1/32",
-                     *   "28.239.14.0/24",
-                     *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
-                     * ]
+                     * @description List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)
+                     * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                     * blocks at most.
+                     *
+                     * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                     * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                     * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                     * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                     *
+                     * @example []
                      */
-                    destination_ips?: string[];
+                    destination_ips: string[];
                     /**
                      * @description Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.
+                     * @example in
                      * @enum {string}
                      */
                     direction: "in" | "out";
@@ -2865,21 +2923,29 @@ export interface paths {
                      * @description Port or port range to which traffic will be allowed, only applicable for protocols TCP and UDP. A port range can be specified by separating two ports with a dash, e.g `1024-5000`.
                      * @example 80
                      */
-                    port?: string;
+                    port: string | null;
                     /**
                      * @description Type of traffic to allow
                      * @enum {string}
                      */
                     protocol: "tcp" | "udp" | "icmp" | "esp" | "gre";
                     /**
-                     * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
+                     * @description List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)
+                     * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                     * blocks at most.
+                     *
+                     * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                     * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                     * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                     * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                     *
                      * @example [
                      *   "28.239.13.1/32",
                      *   "28.239.14.0/24",
                      *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
                      * ]
                      */
-                    source_ips?: string[];
+                    source_ips: string[];
                   })[];
               };
             };
@@ -2900,7 +2966,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Firewall. */
           id: number;
         };
       };
@@ -2936,7 +3002,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Firewall. */
           id: number;
         };
       };
@@ -2947,19 +3013,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -2972,46 +3038,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -3076,7 +3138,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Firewall */
+          /** @description ID of the Firewall. */
           id: number;
         };
       };
@@ -3129,19 +3191,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -3154,86 +3216,40 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
-              /** ListMeta */
-              meta?: {
-                /** @description See "[Pagination](#pagination)" for more information. */
-                pagination: {
-                  /**
-                   * Format: int64
-                   * @description Page number of the last page available. Can be null if the current page is the last one.
-                   * @example 4
-                   */
-                  last_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Page number of the next page. Can be null if the current page is the last one.
-                   * @example 4
-                   */
-                  next_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Current page number.
-                   * @example 3
-                   */
-                  page: number;
-                  /**
-                   * Format: int64
-                   * @description Maximum number of entries returned per page.
-                   * @example 25
-                   */
-                  per_page: number;
-                  /**
-                   * Format: int64
-                   * @description Page number of the previous page. Can be null if the current page is the first one.
-                   * @example 2
-                   */
-                  previous_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Total number of entries that exist for this query. Can be null if unknown.
-                   * @example 100
-                   */
-                  total_entries: number | null;
-                };
-              };
             };
           };
         };
@@ -3258,7 +3274,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Firewall */
+          /** @description ID of the Firewall. */
           id: number;
         };
       };
@@ -3311,19 +3327,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -3336,86 +3352,40 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
-              /** ListMeta */
-              meta?: {
-                /** @description See "[Pagination](#pagination)" for more information. */
-                pagination: {
-                  /**
-                   * Format: int64
-                   * @description Page number of the last page available. Can be null if the current page is the last one.
-                   * @example 4
-                   */
-                  last_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Page number of the next page. Can be null if the current page is the last one.
-                   * @example 4
-                   */
-                  next_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Current page number.
-                   * @example 3
-                   */
-                  page: number;
-                  /**
-                   * Format: int64
-                   * @description Maximum number of entries returned per page.
-                   * @example 25
-                   */
-                  per_page: number;
-                  /**
-                   * Format: int64
-                   * @description Page number of the previous page. Can be null if the current page is the first one.
-                   * @example 2
-                   */
-                  previous_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Total number of entries that exist for this query. Can be null if unknown.
-                   * @example 100
-                   */
-                  total_entries: number | null;
-                };
-              };
             };
           };
         };
@@ -3439,28 +3409,37 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Firewall */
+          /** @description ID of the Firewall. */
           id: number;
         };
       };
       requestBody?: {
         content: {
           "application/json": {
-            /** @description Array of rules */
+            /**
+             * @description Array of rules.
+             *
+             * Limited to a maximum of 50 rules per Firewall.
+             */
             rules: ({
                 /** @description Description of the Rule */
                 description?: string | null;
                 /**
-                 * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
-                 * @example [
-                 *   "28.239.13.1/32",
-                 *   "28.239.14.0/24",
-                 *   "ff21:1eac:9a3b:ee58:5ca:990c:8bc9:c03b/128"
-                 * ]
+                 * @description List of permitted IPv4/IPv6 addresses for outgoing traffic (`direction` set to `out`)
+                 * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                 * blocks at most.
+                 *
+                 * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                 * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                 * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                 * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                 *
+                 * @example []
                  */
                 destination_ips?: string[];
                 /**
                  * @description Select traffic direction on which rule should be applied. Use `source_ips` for direction `in` and `destination_ips` for direction `out`.
+                 * @example in
                  * @enum {string}
                  */
                 direction: "in" | "out";
@@ -3475,7 +3454,15 @@ export interface paths {
                  */
                 protocol: "tcp" | "udp" | "icmp" | "esp" | "gre";
                 /**
-                 * @description List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100 CIDRs at most.
+                 * @description List of permitted IPv4/IPv6 addresses for incoming traffic (`direction` set to `in`)
+                 * in [CIDR block notation](https://wikipedia.org/wiki/CIDR). You can specify 100 CIDR
+                 * blocks at most.
+                 *
+                 * The CIDR blocks may refer to networks (with empty host bits) or single hosts.
+                 * For example, a network could be defined with `10.0.1.0/24` or `2001:db8:ff00:42::/64`,
+                 * and a single host with `10.0.1.1/32` or `2001:db8:ff00:42::8329/128`.
+                 * Use `0.0.0.0/0` to allow any IPv4 addresses and `::/0` to allow any IPv6 addresses.
+                 *
                  * @example [
                  *   "28.239.13.1/32",
                  *   "28.239.14.0/24",
@@ -3494,19 +3481,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -3519,86 +3506,40 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
-              /** ListMeta */
-              meta?: {
-                /** @description See "[Pagination](#pagination)" for more information. */
-                pagination: {
-                  /**
-                   * Format: int64
-                   * @description Page number of the last page available. Can be null if the current page is the last one.
-                   * @example 4
-                   */
-                  last_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Page number of the next page. Can be null if the current page is the last one.
-                   * @example 4
-                   */
-                  next_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Current page number.
-                   * @example 3
-                   */
-                  page: number;
-                  /**
-                   * Format: int64
-                   * @description Maximum number of entries returned per page.
-                   * @example 25
-                   */
-                  per_page: number;
-                  /**
-                   * Format: int64
-                   * @description Page number of the previous page. Can be null if the current page is the first one.
-                   * @example 2
-                   */
-                  previous_page: number | null;
-                  /**
-                   * Format: int64
-                   * @description Total number of entries that exist for this query. Can be null if unknown.
-                   * @example 100
-                   */
-                  total_entries: number | null;
-                };
-              };
             };
           };
         };
@@ -3613,9 +3554,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Firewall */
+          /** @description ID of the Firewall. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -3627,19 +3568,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -3652,43 +3593,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -3714,7 +3651,10 @@ export interface paths {
            * label selector. For more information, see "[Label Selector](#label-selector)".
            */
           label_selector?: string;
-          /** @description Can be used multiple times. Choices id id:asc id:desc created created:asc created:desc */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "created" | "created:asc" | "created:desc";
           /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
@@ -3759,54 +3699,58 @@ export interface paths {
                   /** @description Location the Floating IP was created in. Routing is optimized for this Location. */
                   home_location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Floating IP.
                    * @example 42
                    */
                   id: number;
@@ -3854,7 +3798,7 @@ export interface paths {
                   type: "ipv4" | "ipv6";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -3917,12 +3861,18 @@ export interface paths {
              */
             home_location?: string;
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /** @example Web Frontend */
             name?: string;
             /**
@@ -3947,19 +3897,19 @@ export interface paths {
               /** Action */
               action?: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -3972,43 +3922,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               floating_ip: {
                 /**
@@ -4042,54 +3988,58 @@ export interface paths {
                 /** @description Location the Floating IP was created in. Routing is optimized for this Location. */
                 home_location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Floating IP.
                  * @example 42
                  */
                 id: number;
@@ -4178,19 +4128,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -4203,46 +4153,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -4309,19 +4255,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -4334,43 +4280,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -4386,7 +4328,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -4427,54 +4369,58 @@ export interface paths {
                 /** @description Location the Floating IP was created in. Routing is optimized for this Location. */
                 home_location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Floating IP.
                  * @example 42
                  */
                 id: number;
@@ -4534,7 +4480,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -4547,12 +4493,18 @@ export interface paths {
              */
             description?: string;
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New unique name to set
              * @example Web Frontend
@@ -4598,54 +4550,58 @@ export interface paths {
                 /** @description Location the Floating IP was created in. Routing is optimized for this Location. */
                 home_location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Floating IP.
                  * @example 42
                  */
                 id: number;
@@ -4704,7 +4660,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -4740,7 +4696,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -4751,19 +4707,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -4776,46 +4732,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -4870,7 +4822,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -4894,19 +4846,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -4919,43 +4871,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -4971,7 +4919,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -5004,19 +4952,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -5029,43 +4977,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -5081,7 +5025,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -5104,19 +5048,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -5129,43 +5073,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -5181,7 +5121,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
         };
       };
@@ -5193,19 +5133,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -5218,43 +5158,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -5270,9 +5206,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Floating IP */
+          /** @description ID of the Floating IP. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -5284,19 +5220,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -5309,43 +5245,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -5451,9 +5383,7 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Image.
                    * @example 42
                    */
                   id: number;
@@ -5517,7 +5447,7 @@ export interface paths {
                   type: "system" | "app" | "snapshot" | "backup" | "temporary";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -5600,19 +5530,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -5625,46 +5555,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -5731,19 +5657,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -5756,43 +5682,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -5808,7 +5730,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Image */
+          /** @description ID of the Image. */
           id: number;
         };
       };
@@ -5871,9 +5793,7 @@ export interface paths {
                 disk_size: number;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Image.
                  * @example 42
                  */
                 id: number;
@@ -5950,7 +5870,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Image */
+          /** @description ID of the Image. */
           id: number;
         };
       };
@@ -5963,12 +5883,18 @@ export interface paths {
              */
             description?: string;
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description Destination Image type to convert to
              * @enum {string}
@@ -6036,9 +5962,7 @@ export interface paths {
                 disk_size: number;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Image.
                  * @example 42
                  */
                 id: number;
@@ -6113,7 +6037,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Image */
+          /** @description ID of the Image. */
           id: number;
         };
       };
@@ -6149,7 +6073,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Image */
+          /** @description ID of the Image. */
           id: number;
         };
       };
@@ -6160,19 +6084,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -6185,46 +6109,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -6279,7 +6199,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Image */
+          /** @description ID of the Image. */
           id: number;
         };
       };
@@ -6302,19 +6222,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -6327,43 +6247,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -6379,9 +6295,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Image */
+          /** @description ID of the Image. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -6393,19 +6309,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -6418,43 +6334,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -6470,7 +6382,10 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter ISOs by their name. The response will only contain the ISO matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
           /** @description Return only ISOs with the given architecture. */
           architecture?: string;
@@ -6529,9 +6444,7 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the ISO.
                    * @example 42
                    */
                   id: number;
@@ -6547,7 +6460,7 @@ export interface paths {
                   type: "public" | "private" | null;
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -6602,7 +6515,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the ISO */
+          /** @description ID of the ISO. */
           id: number;
         };
       };
@@ -6653,9 +6566,7 @@ export interface paths {
                 description: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the ISO.
                  * @example 42
                  */
                 id: number;
@@ -6684,7 +6595,10 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter Load Balancer types by their name. The response will only contain the Load Balancer type matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
           /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
@@ -6796,7 +6710,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of Load Balancer type */
+          /** @description ID of the Load Balancer Type. */
           id: number;
         };
       };
@@ -6946,9 +6860,7 @@ export interface paths {
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Load Balancer.
                    * @example 42
                    */
                   id: number;
@@ -7063,45 +6975,51 @@ export interface paths {
                   };
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
@@ -7399,7 +7317,7 @@ export interface paths {
                     })[];
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -7480,13 +7398,18 @@ export interface paths {
                */
               type: "round_robin" | "least_connections";
             };
-            /** @description User-defined labels (key-value pairs) */
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
             labels?: {
-              /**
-               * @description New label
-               * @example value
-               */
-              labelkey?: string;
+              [key: string]: string;
             };
             /**
              * @description ID or name of the Load Balancer type this Load Balancer should be created with
@@ -7755,19 +7678,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -7780,43 +7703,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               load_balancer: {
                 /** @description Algorithm of the Load Balancer */
@@ -7834,9 +7753,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Load Balancer.
                  * @example 42
                  */
                 id: number;
@@ -7951,45 +7868,51 @@ export interface paths {
                 };
                 location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
@@ -8328,19 +8251,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -8353,46 +8276,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -8459,19 +8378,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -8484,43 +8403,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -8536,7 +8451,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -8561,9 +8476,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Load Balancer.
                  * @example 42
                  */
                 id: number;
@@ -8678,45 +8591,51 @@ export interface paths {
                 };
                 location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
@@ -9029,7 +8948,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -9037,12 +8956,18 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New Load Balancer name
              * @example new-name
@@ -9072,9 +8997,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Load Balancer.
                  * @example 42
                  */
                 id: number;
@@ -9189,45 +9112,51 @@ export interface paths {
                 };
                 location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
@@ -9536,7 +9465,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -9572,7 +9501,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -9583,19 +9512,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -9608,46 +9537,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -9708,7 +9633,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -9851,19 +9776,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -9876,43 +9801,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -9939,7 +9860,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -9996,19 +9917,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10021,43 +9942,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10081,7 +9998,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10110,19 +10027,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10135,43 +10052,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10187,7 +10100,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10210,19 +10123,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10235,43 +10148,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10289,7 +10198,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10318,19 +10227,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10343,43 +10252,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10395,7 +10300,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10418,19 +10323,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10443,43 +10348,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10501,7 +10402,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10524,19 +10425,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10549,43 +10450,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10601,7 +10498,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10624,19 +10521,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10649,43 +10546,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10701,7 +10594,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10725,19 +10618,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10750,43 +10643,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10809,7 +10698,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10821,19 +10710,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10846,43 +10735,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10898,7 +10783,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -10910,19 +10795,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -10935,43 +10820,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -10987,7 +10868,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -11038,19 +10919,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -11063,43 +10944,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -11121,7 +10998,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -11262,19 +11139,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -11287,43 +11164,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -11339,9 +11212,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -11353,19 +11226,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -11378,43 +11251,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -11456,7 +11325,7 @@ export interface paths {
           step?: string;
         };
         path: {
-          /** @description ID of the Load Balancer */
+          /** @description ID of the Load Balancer. */
           id: number;
         };
       };
@@ -11514,14 +11383,20 @@ export interface paths {
   "/locations": {
     /**
      * Get all Locations
-     * @description Returns all Location objects.
+     * @description Returns all Locations.
      */
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter Locations by their name. The response will only contain the Location matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc";
           /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
@@ -11530,51 +11405,58 @@ export interface paths {
         };
       };
       responses: {
-        /** @description The `locations` key in the reply contains an array of Location objects with this structure */
+        /** @description Contains the queried Locations. */
         200: {
           content: {
             "application/json": {
+              /** @description List of Locations. */
               locations: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
@@ -11630,61 +11512,67 @@ export interface paths {
   "/locations/{id}": {
     /**
      * Get a Location
-     * @description Returns a specific Location object.
+     * @description Returns a single Location.
      */
     get: {
       parameters: {
         path: {
-          /** @description ID of Location */
+          /** @description ID of the Location. */
           id: number;
         };
       };
       responses: {
-        /** @description The `location` key in the reply contains a Location object with this structure */
+        /** @description Contains the queried Location. */
         200: {
           content: {
             "application/json": {
               location: {
                 /**
-                 * @description City the Location is closest to
+                 * @description Name of the closest city to the Location.
+                 *
+                 * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                 *
                  * @example Falkenstein
                  */
                 city: string;
                 /**
-                 * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                 * @description Country the Location resides in.
+                 *
+                 * ISO 3166-1 alpha-2 code of the country.
+                 *
                  * @example DE
                  */
                 country: string;
                 /**
-                 * @description Description of the Location
+                 * @description Humand readable description of the Location.
                  * @example Falkenstein DC Park 1
                  */
                 description: string;
                 /**
                  * Format: int64
-                 * @description ID of the Location
-                 * @example 1
+                 * @description ID of the Location.
+                 * @example 42
                  */
                 id: number;
                 /**
                  * Format: double
-                 * @description Latitude of the city closest to the Location
+                 * @description Latitude of the city closest to the Location.
                  * @example 50.47612
                  */
                 latitude: number;
                 /**
                  * Format: double
-                 * @description Longitude of the city closest to the Location
+                 * @description Longitude of the city closest to the Location.
                  * @example 12.370071
                  */
                 longitude: number;
                 /**
-                 * @description Unique identifier of the Location
+                 * @description Unique identifier of the Location.
                  * @example fsn1
                  */
                 name: string;
                 /**
-                 * @description Name of network zone this Location resides in
+                 * @description Name of the Network Zone this Location resides in.
                  * @example eu-central
                  */
                 network_zone: string;
@@ -11725,7 +11613,7 @@ export interface paths {
           content: {
             "application/json": {
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -11788,8 +11676,19 @@ export interface paths {
                    * @example 10.0.0.0/16
                    */
                   ip_range: string;
-                  /** @description User-defined labels (key-value pairs) */
-                  labels: Record<string, never>;
+                  /**
+                   * @description User-defined labels (`key/value` pairs) for the Resource.
+                   * For more information, see "[Labels](#labels)".
+                   *
+                   * @example {
+                   *   "environment": "prod",
+                   *   "example.com/my": "label",
+                   *   "just-a-key": ""
+                   * }
+                   */
+                  labels: {
+                    [key: string]: string;
+                  };
                   /**
                    * @description Array of IDs of Load Balancers attached to this Network
                    * @example [
@@ -11802,10 +11701,10 @@ export interface paths {
                    * @example mynet
                    */
                   name: string;
-                  /** @description Protection configuration for the Network */
+                  /** @description Protection configuration for the Resource. */
                   protection: {
                     /**
-                     * @description If true, prevents the Network from being deleted
+                     * @description Prevent the Resource from being deleted.
                      * @example false
                      */
                     delete: boolean;
@@ -11887,13 +11786,18 @@ export interface paths {
              * @example 10.0.0.0/16
              */
             ip_range: string;
-            /** @description User-defined labels (key-value pairs) */
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
             labels?: {
-              /**
-               * @description New label
-               * @example value
-               */
-              labelkey?: string;
+              [key: string]: string;
             };
             /**
              * @description Name of the network
@@ -11967,8 +11871,19 @@ export interface paths {
                  * @example 10.0.0.0/16
                  */
                 ip_range: string;
-                /** @description User-defined labels (key-value pairs) */
-                labels: Record<string, never>;
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
+                labels: {
+                  [key: string]: string;
+                };
                 /**
                  * @description Array of IDs of Load Balancers attached to this Network
                  * @example [
@@ -11981,10 +11896,10 @@ export interface paths {
                  * @example mynet
                  */
                 name: string;
-                /** @description Protection configuration for the Network */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Network from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -12081,19 +11996,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -12106,46 +12021,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -12212,19 +12123,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -12237,43 +12148,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -12289,7 +12196,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -12320,8 +12227,19 @@ export interface paths {
                  * @example 10.0.0.0/16
                  */
                 ip_range: string;
-                /** @description User-defined labels (key-value pairs) */
-                labels: Record<string, never>;
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
+                labels: {
+                  [key: string]: string;
+                };
                 /**
                  * @description Array of IDs of Load Balancers attached to this Network
                  * @example [
@@ -12334,10 +12252,10 @@ export interface paths {
                  * @example mynet
                  */
                 name: string;
-                /** @description Protection configuration for the Network */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Network from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -12408,7 +12326,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -12420,10 +12338,18 @@ export interface paths {
              * @example false
              */
             expose_routes_to_vswitch?: boolean;
-            /** @description User-defined labels (key-value pairs) */
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
             labels?: {
-              /** @example value */
-              labelkey?: string;
+              [key: string]: string;
             };
             /**
              * @description New network name
@@ -12460,8 +12386,19 @@ export interface paths {
                  * @example 10.0.0.0/16
                  */
                 ip_range: string;
-                /** @description User-defined labels (key-value pairs) */
-                labels: Record<string, never>;
+                /**
+                 * @description User-defined labels (`key/value` pairs) for the Resource.
+                 * For more information, see "[Labels](#labels)".
+                 *
+                 * @example {
+                 *   "environment": "prod",
+                 *   "example.com/my": "label",
+                 *   "just-a-key": ""
+                 * }
+                 */
+                labels: {
+                  [key: string]: string;
+                };
                 /**
                  * @description Array of IDs of Load Balancers attached to this Network
                  * @example [
@@ -12474,10 +12411,10 @@ export interface paths {
                  * @example mynet
                  */
                 name: string;
-                /** @description Protection configuration for the Network */
+                /** @description Protection configuration for the Resource. */
                 protection: {
                   /**
-                   * @description If true, prevents the Network from being deleted
+                   * @description Prevent the Resource from being deleted.
                    * @example false
                    */
                   delete: boolean;
@@ -12546,7 +12483,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -12582,7 +12519,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -12593,19 +12530,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -12618,46 +12555,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -12714,7 +12647,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -12742,19 +12675,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -12767,43 +12700,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -12821,7 +12750,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -12860,19 +12789,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -12885,43 +12814,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -12943,7 +12868,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -12966,19 +12891,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -12991,43 +12916,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -13045,7 +12966,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -13068,19 +12989,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -13093,43 +13014,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -13147,7 +13064,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -13175,19 +13092,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -13200,43 +13117,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -13254,7 +13167,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
         };
       };
@@ -13277,19 +13190,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -13302,43 +13215,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -13354,9 +13263,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Network */
+          /** @description ID of the Network. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -13368,19 +13277,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -13393,43 +13302,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -13474,7 +13379,7 @@ export interface paths {
           content: {
             "application/json": {
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -13523,9 +13428,7 @@ export interface paths {
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Placement Group.
                    * @example 42
                    */
                   id: number;
@@ -13574,8 +13477,19 @@ export interface paths {
       requestBody?: {
         content: {
           "application/json": {
-            /** @description User-defined labels (key-value pairs) */
-            labels?: Record<string, never>;
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description Name of the PlacementGroup
              * @example my Placement Group
@@ -13598,19 +13512,19 @@ export interface paths {
               /** ActionNullable */
               action?: ({
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -13623,43 +13537,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               }) | null;
               /** PlacementGroup */
               placement_group: {
@@ -13670,9 +13580,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Placement Group.
                  * @example 42
                  */
                 id: number;
@@ -13722,7 +13630,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Placement Group. */
           id: number;
         };
       };
@@ -13740,9 +13648,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Placement Group.
                  * @example 42
                  */
                 id: number;
@@ -13794,7 +13700,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Placement Group. */
           id: number;
         };
       };
@@ -13802,12 +13708,18 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New PlacementGroup name
              * @example my Placement Group
@@ -13830,9 +13742,7 @@ export interface paths {
                 created: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Placement Group.
                  * @example 42
                  */
                 id: number;
@@ -13880,7 +13790,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Placement Group. */
           id: number;
         };
       };
@@ -14211,7 +14121,10 @@ export interface paths {
           page?: number;
           /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
           per_page?: number;
-          /** @description Can be used multiple times. Choices id id:asc id:desc created created:asc created:desc */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "created" | "created:asc" | "created:desc";
         };
       };
@@ -14221,7 +14134,7 @@ export interface paths {
           content: {
             "application/json": {
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -14292,73 +14205,81 @@ export interface paths {
                   /** @description Datacenter this Primary IP is located at */
                   datacenter: {
                     /**
-                     * @description Description of the Datacenter
+                     * @description Human readable description of the Datacenter.
                      * @example Falkenstein DC Park 8
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Datacenter.
                      * @example 42
                      */
                     id: number;
                     /** @description The location of the datacenter. */
                     location: {
                       /**
-                       * @description City the Location is closest to
+                       * @description Name of the closest city to the Location.
+                       *
+                       * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                       *
                        * @example Falkenstein
                        */
                       city: string;
                       /**
-                       * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                       * @description Country the Location resides in.
+                       *
+                       * ISO 3166-1 alpha-2 code of the country.
+                       *
                        * @example DE
                        */
                       country: string;
                       /**
-                       * @description Description of the Location
+                       * @description Humand readable description of the Location.
                        * @example Falkenstein DC Park 1
                        */
                       description: string;
                       /**
                        * Format: int64
-                       * @description ID of the Location
-                       * @example 1
+                       * @description ID of the Location.
+                       * @example 42
                        */
                       id: number;
                       /**
                        * Format: double
-                       * @description Latitude of the city closest to the Location
+                       * @description Latitude of the city closest to the Location.
                        * @example 50.47612
                        */
                       latitude: number;
                       /**
                        * Format: double
-                       * @description Longitude of the city closest to the Location
+                       * @description Longitude of the city closest to the Location.
                        * @example 12.370071
                        */
                       longitude: number;
                       /**
-                       * @description Unique identifier of the Location
+                       * @description Unique identifier of the Location.
                        * @example fsn1
                        */
                       name: string;
                       /**
-                       * @description Name of network zone this Location resides in
+                       * @description Name of the Network Zone this Location resides in.
                        * @example eu-central
                        */
                       network_zone: string;
                     };
                     /**
-                     * @description Unique identifier of the Datacenter
+                     * @description Unique identifier of the Datacenter.
                      * @example fsn1-dc8
                      */
                     name: string;
-                    /** @description The Server types the Datacenter can handle */
+                    /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                     server_types: {
                       /**
-                       * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                       * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                       *
+                       * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                       * but are supported in this Datacenter are listed as `supported`.
+                       *
                        * @example [
                        *   1,
                        *   2,
@@ -14367,7 +14288,10 @@ export interface paths {
                        */
                       available: number[];
                       /**
-                       * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                       * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                       *
+                       * Existing Servers can be migrated to the Server Types listed here.
+                       *
                        * @example [
                        *   1,
                        *   2,
@@ -14376,7 +14300,11 @@ export interface paths {
                        */
                       available_for_migration: number[];
                       /**
-                       * @description IDs of Server types that are supported in the Datacenter
+                       * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                       *
+                       * Those Server Types are generally available in this Datacenter, but might be
+                       * temporarily out of stock.
+                       *
                        * @example [
                        *   1,
                        *   2,
@@ -14401,9 +14329,7 @@ export interface paths {
                     }[];
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Primary IP.
                    * @example 42
                    */
                   id: number;
@@ -14494,12 +14420,18 @@ export interface paths {
              */
             datacenter?: string;
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /** @example my-ip */
             name: string;
             /**
@@ -14518,19 +14450,19 @@ export interface paths {
               /** Action */
               action?: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -14543,43 +14475,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               /** PrimaryIP */
               primary_ip: {
@@ -14612,73 +14540,81 @@ export interface paths {
                 /** @description Datacenter this Primary IP is located at */
                 datacenter: {
                   /**
-                   * @description Description of the Datacenter
+                   * @description Human readable description of the Datacenter.
                    * @example Falkenstein DC Park 8
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Datacenter.
                    * @example 42
                    */
                   id: number;
                   /** @description The location of the datacenter. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
-                   * @description Unique identifier of the Datacenter
+                   * @description Unique identifier of the Datacenter.
                    * @example fsn1-dc8
                    */
                   name: string;
-                  /** @description The Server types the Datacenter can handle */
+                  /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                   server_types: {
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                     *
+                     * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                     * but are supported in this Datacenter are listed as `supported`.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -14687,7 +14623,10 @@ export interface paths {
                      */
                     available: number[];
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                     *
+                     * Existing Servers can be migrated to the Server Types listed here.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -14696,7 +14635,11 @@ export interface paths {
                      */
                     available_for_migration: number[];
                     /**
-                     * @description IDs of Server types that are supported in the Datacenter
+                     * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                     *
+                     * Those Server Types are generally available in this Datacenter, but might be
+                     * temporarily out of stock.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -14721,9 +14664,7 @@ export interface paths {
                   }[];
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Primary IP.
                  * @example 42
                  */
                 id: number;
@@ -14806,19 +14747,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -14831,46 +14772,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -14937,19 +14874,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -14962,43 +14899,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -15014,7 +14947,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Primary IP. */
           id: number;
         };
       };
@@ -15054,73 +14987,81 @@ export interface paths {
                 /** @description Datacenter this Primary IP is located at */
                 datacenter: {
                   /**
-                   * @description Description of the Datacenter
+                   * @description Human readable description of the Datacenter.
                    * @example Falkenstein DC Park 8
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Datacenter.
                    * @example 42
                    */
                   id: number;
                   /** @description The location of the datacenter. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
-                   * @description Unique identifier of the Datacenter
+                   * @description Unique identifier of the Datacenter.
                    * @example fsn1-dc8
                    */
                   name: string;
-                  /** @description The Server types the Datacenter can handle */
+                  /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                   server_types: {
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                     *
+                     * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                     * but are supported in this Datacenter are listed as `supported`.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -15129,7 +15070,10 @@ export interface paths {
                      */
                     available: number[];
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                     *
+                     * Existing Servers can be migrated to the Server Types listed here.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -15138,7 +15082,11 @@ export interface paths {
                      */
                     available_for_migration: number[];
                     /**
-                     * @description IDs of Server types that are supported in the Datacenter
+                     * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                     *
+                     * Those Server Types are generally available in this Datacenter, but might be
+                     * temporarily out of stock.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -15163,9 +15111,7 @@ export interface paths {
                   }[];
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Primary IP.
                  * @example 42
                  */
                 id: number;
@@ -15222,7 +15168,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Primary IP. */
           id: number;
         };
       };
@@ -15235,12 +15181,18 @@ export interface paths {
              */
             auto_delete?: boolean;
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New unique name to set
              * @example my-ip
@@ -15285,73 +15237,81 @@ export interface paths {
                 /** @description Datacenter this Primary IP is located at */
                 datacenter: {
                   /**
-                   * @description Description of the Datacenter
+                   * @description Human readable description of the Datacenter.
                    * @example Falkenstein DC Park 8
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Datacenter.
                    * @example 42
                    */
                   id: number;
                   /** @description The location of the datacenter. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
-                   * @description Unique identifier of the Datacenter
+                   * @description Unique identifier of the Datacenter.
                    * @example fsn1-dc8
                    */
                   name: string;
-                  /** @description The Server types the Datacenter can handle */
+                  /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                   server_types: {
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                     *
+                     * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                     * but are supported in this Datacenter are listed as `supported`.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -15360,7 +15320,10 @@ export interface paths {
                      */
                     available: number[];
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                     *
+                     * Existing Servers can be migrated to the Server Types listed here.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -15369,7 +15332,11 @@ export interface paths {
                      */
                     available_for_migration: number[];
                     /**
-                     * @description IDs of Server types that are supported in the Datacenter
+                     * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                     *
+                     * Those Server Types are generally available in this Datacenter, but might be
+                     * temporarily out of stock.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -15394,9 +15361,7 @@ export interface paths {
                   }[];
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Primary IP.
                  * @example 42
                  */
                 id: number;
@@ -15451,7 +15416,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Primary IP. */
           id: number;
         };
       };
@@ -15484,7 +15449,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Primary IP */
+          /** @description ID of the Primary IP. */
           id: number;
         };
       };
@@ -15514,19 +15479,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -15539,43 +15504,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -15591,7 +15552,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Primary IP */
+          /** @description ID of the Primary IP. */
           id: number;
         };
       };
@@ -15624,19 +15585,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -15649,43 +15610,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -15703,7 +15660,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Primary IP */
+          /** @description ID of the Primary IP. */
           id: number;
         };
       };
@@ -15726,19 +15683,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -15751,43 +15708,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -15814,7 +15767,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Primary IP */
+          /** @description ID of the Primary IP. */
           id: number;
         };
       };
@@ -15826,19 +15779,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -15851,43 +15804,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -15903,7 +15852,10 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used to filter Server types by their name. The response will only contain the Server type matching the specified name. */
+          /**
+           * @description Filter resources by their name. The response will only contain the resources
+           * matching the specified name.
+           */
           name?: string;
           /** @description Page number to return. For more information, see "[Pagination](#pagination)". */
           page?: number;
@@ -16056,7 +16008,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of Server Type */
+          /** @description ID of the Server Type. */
           id: number;
         };
       };
@@ -16238,7 +16190,7 @@ export interface paths {
           content: {
             "application/json": {
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -16293,73 +16245,81 @@ export interface paths {
                   /** @description Datacenter this Resource is located at */
                   datacenter: {
                     /**
-                     * @description Description of the Datacenter
+                     * @description Human readable description of the Datacenter.
                      * @example Falkenstein DC Park 8
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Datacenter.
                      * @example 42
                      */
                     id: number;
                     /** @description The location of the datacenter. */
                     location: {
                       /**
-                       * @description City the Location is closest to
+                       * @description Name of the closest city to the Location.
+                       *
+                       * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                       *
                        * @example Falkenstein
                        */
                       city: string;
                       /**
-                       * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                       * @description Country the Location resides in.
+                       *
+                       * ISO 3166-1 alpha-2 code of the country.
+                       *
                        * @example DE
                        */
                       country: string;
                       /**
-                       * @description Description of the Location
+                       * @description Humand readable description of the Location.
                        * @example Falkenstein DC Park 1
                        */
                       description: string;
                       /**
                        * Format: int64
-                       * @description ID of the Location
-                       * @example 1
+                       * @description ID of the Location.
+                       * @example 42
                        */
                       id: number;
                       /**
                        * Format: double
-                       * @description Latitude of the city closest to the Location
+                       * @description Latitude of the city closest to the Location.
                        * @example 50.47612
                        */
                       latitude: number;
                       /**
                        * Format: double
-                       * @description Longitude of the city closest to the Location
+                       * @description Longitude of the city closest to the Location.
                        * @example 12.370071
                        */
                       longitude: number;
                       /**
-                       * @description Unique identifier of the Location
+                       * @description Unique identifier of the Location.
                        * @example fsn1
                        */
                       name: string;
                       /**
-                       * @description Name of network zone this Location resides in
+                       * @description Name of the Network Zone this Location resides in.
                        * @example eu-central
                        */
                       network_zone: string;
                     };
                     /**
-                     * @description Unique identifier of the Datacenter
+                     * @description Unique identifier of the Datacenter.
                      * @example fsn1-dc8
                      */
                     name: string;
-                    /** @description The Server types the Datacenter can handle */
+                    /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                     server_types: {
                       /**
-                       * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                       * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                       *
+                       * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                       * but are supported in this Datacenter are listed as `supported`.
+                       *
                        * @example [
                        *   1,
                        *   2,
@@ -16368,7 +16328,10 @@ export interface paths {
                        */
                       available: number[];
                       /**
-                       * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                       * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                       *
+                       * Existing Servers can be migrated to the Server Types listed here.
+                       *
                        * @example [
                        *   1,
                        *   2,
@@ -16377,7 +16340,11 @@ export interface paths {
                        */
                       available_for_migration: number[];
                       /**
-                       * @description IDs of Server types that are supported in the Datacenter
+                       * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                       *
+                       * Those Server Types are generally available in this Datacenter, but might be
+                       * temporarily out of stock.
+                       *
                        * @example [
                        *   1,
                        *   2,
@@ -16389,9 +16356,7 @@ export interface paths {
                   };
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Server.
                    * @example 42
                    */
                   id: number;
@@ -16450,9 +16415,7 @@ export interface paths {
                     disk_size: number;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Image.
                      * @example 42
                      */
                     id: number;
@@ -16570,9 +16533,7 @@ export interface paths {
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the ISO.
                      * @example 42
                      */
                     id: number;
@@ -16630,9 +16591,7 @@ export interface paths {
                     created: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Placement Group.
                      * @example 42
                      */
                     id: number;
@@ -16713,9 +16672,7 @@ export interface paths {
                     firewalls?: ({
                         /**
                          * Format: int64
-                         * @description ID of the Resource.
-                         * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                         *
+                         * @description ID of the Firewall.
                          * @example 42
                          */
                         id?: number;
@@ -16747,9 +16704,7 @@ export interface paths {
                       dns_ptr: string;
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Primary IP.
                        * @example 42
                        */
                       id?: number;
@@ -16781,9 +16736,7 @@ export interface paths {
                         }[] | null;
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Primary IP.
                        * @example 42
                        */
                       id?: number;
@@ -17000,8 +16953,19 @@ export interface paths {
              * @example ubuntu-20.04
              */
             image: string;
-            /** @description User-defined labels (key-value pairs) */
-            labels?: Record<string, never>;
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description ID or name of Location to create Server in (must not be used together with datacenter)
              * @example nbg1
@@ -17085,19 +17049,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -17110,59 +17074,55 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               next_actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -17175,43 +17135,39 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /**
                * @description Root password when no SSH keys have been specified
@@ -17232,73 +17188,81 @@ export interface paths {
                 /** @description Datacenter this Resource is located at */
                 datacenter: {
                   /**
-                   * @description Description of the Datacenter
+                   * @description Human readable description of the Datacenter.
                    * @example Falkenstein DC Park 8
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Datacenter.
                    * @example 42
                    */
                   id: number;
                   /** @description The location of the datacenter. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
-                   * @description Unique identifier of the Datacenter
+                   * @description Unique identifier of the Datacenter.
                    * @example fsn1-dc8
                    */
                   name: string;
-                  /** @description The Server types the Datacenter can handle */
+                  /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                   server_types: {
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                     *
+                     * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                     * but are supported in this Datacenter are listed as `supported`.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -17307,7 +17271,10 @@ export interface paths {
                      */
                     available: number[];
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                     *
+                     * Existing Servers can be migrated to the Server Types listed here.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -17316,7 +17283,11 @@ export interface paths {
                      */
                     available_for_migration: number[];
                     /**
-                     * @description IDs of Server types that are supported in the Datacenter
+                     * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                     *
+                     * Those Server Types are generally available in this Datacenter, but might be
+                     * temporarily out of stock.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -17328,9 +17299,7 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Server.
                  * @example 42
                  */
                 id: number;
@@ -17389,9 +17358,7 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Image.
                    * @example 42
                    */
                   id: number;
@@ -17509,9 +17476,7 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the ISO.
                    * @example 42
                    */
                   id: number;
@@ -17569,9 +17534,7 @@ export interface paths {
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Placement Group.
                    * @example 42
                    */
                   id: number;
@@ -17652,9 +17615,7 @@ export interface paths {
                   firewalls?: ({
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Firewall.
                        * @example 42
                        */
                       id?: number;
@@ -17686,9 +17647,7 @@ export interface paths {
                     dns_ptr: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Primary IP.
                      * @example 42
                      */
                     id?: number;
@@ -17720,9 +17679,7 @@ export interface paths {
                       }[] | null;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Primary IP.
                      * @example 42
                      */
                     id?: number;
@@ -17914,19 +17871,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -17939,46 +17896,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -18045,19 +17998,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -18070,43 +18023,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -18122,7 +18071,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -18145,73 +18094,81 @@ export interface paths {
                 /** @description Datacenter this Resource is located at */
                 datacenter: {
                   /**
-                   * @description Description of the Datacenter
+                   * @description Human readable description of the Datacenter.
                    * @example Falkenstein DC Park 8
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Datacenter.
                    * @example 42
                    */
                   id: number;
                   /** @description The location of the datacenter. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
-                   * @description Unique identifier of the Datacenter
+                   * @description Unique identifier of the Datacenter.
                    * @example fsn1-dc8
                    */
                   name: string;
-                  /** @description The Server types the Datacenter can handle */
+                  /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                   server_types: {
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                     *
+                     * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                     * but are supported in this Datacenter are listed as `supported`.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -18220,7 +18177,10 @@ export interface paths {
                      */
                     available: number[];
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                     *
+                     * Existing Servers can be migrated to the Server Types listed here.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -18229,7 +18189,11 @@ export interface paths {
                      */
                     available_for_migration: number[];
                     /**
-                     * @description IDs of Server types that are supported in the Datacenter
+                     * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                     *
+                     * Those Server Types are generally available in this Datacenter, but might be
+                     * temporarily out of stock.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -18241,9 +18205,7 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Server.
                  * @example 42
                  */
                 id: number;
@@ -18302,9 +18264,7 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Image.
                    * @example 42
                    */
                   id: number;
@@ -18422,9 +18382,7 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the ISO.
                    * @example 42
                    */
                   id: number;
@@ -18482,9 +18440,7 @@ export interface paths {
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Placement Group.
                    * @example 42
                    */
                   id: number;
@@ -18565,9 +18521,7 @@ export interface paths {
                   firewalls?: ({
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Firewall.
                        * @example 42
                        */
                       id?: number;
@@ -18599,9 +18553,7 @@ export interface paths {
                     dns_ptr: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Primary IP.
                      * @example 42
                      */
                     id?: number;
@@ -18633,9 +18585,7 @@ export interface paths {
                       }[] | null;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Primary IP.
                      * @example 42
                      */
                     id?: number;
@@ -18799,7 +18749,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -18807,12 +18757,18 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New name to set
              * @example my-server
@@ -18840,73 +18796,81 @@ export interface paths {
                 /** @description Datacenter this Resource is located at */
                 datacenter: {
                   /**
-                   * @description Description of the Datacenter
+                   * @description Human readable description of the Datacenter.
                    * @example Falkenstein DC Park 8
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Datacenter.
                    * @example 42
                    */
                   id: number;
                   /** @description The location of the datacenter. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
                   };
                   /**
-                   * @description Unique identifier of the Datacenter
+                   * @description Unique identifier of the Datacenter.
                    * @example fsn1-dc8
                    */
                   name: string;
-                  /** @description The Server types the Datacenter can handle */
+                  /** @description [Server Types](#server-types) that are supported in this Datacenter. */
                   server_types: {
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) currently available in this Datacenter.
+                     *
+                     * The listed Server Types can currently be purchased. Types that are temporarily unavailable
+                     * but are supported in this Datacenter are listed as `supported`.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -18915,7 +18879,10 @@ export interface paths {
                      */
                     available: number[];
                     /**
-                     * @description IDs of Server types that are supported and for which the Datacenter has enough resources left
+                     * @description IDs of the [Server Types](#server-types) that are available to migrate to in this Datacenter.
+                     *
+                     * Existing Servers can be migrated to the Server Types listed here.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -18924,7 +18891,11 @@ export interface paths {
                      */
                     available_for_migration: number[];
                     /**
-                     * @description IDs of Server types that are supported in the Datacenter
+                     * @description IDs of the [Server Types](#server-types) that are supported in this Datacenter.
+                     *
+                     * Those Server Types are generally available in this Datacenter, but might be
+                     * temporarily out of stock.
+                     *
                      * @example [
                      *   1,
                      *   2,
@@ -18936,9 +18907,7 @@ export interface paths {
                 };
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Server.
                  * @example 42
                  */
                 id: number;
@@ -18997,9 +18966,7 @@ export interface paths {
                   disk_size: number;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Image.
                    * @example 42
                    */
                   id: number;
@@ -19117,9 +19084,7 @@ export interface paths {
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the ISO.
                    * @example 42
                    */
                   id: number;
@@ -19177,9 +19142,7 @@ export interface paths {
                   created: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Placement Group.
                    * @example 42
                    */
                   id: number;
@@ -19260,9 +19223,7 @@ export interface paths {
                   firewalls?: ({
                       /**
                        * Format: int64
-                       * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
+                       * @description ID of the Firewall.
                        * @example 42
                        */
                       id?: number;
@@ -19294,9 +19255,7 @@ export interface paths {
                     dns_ptr: string;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Primary IP.
                      * @example 42
                      */
                     id?: number;
@@ -19328,9 +19287,7 @@ export interface paths {
                       }[] | null;
                     /**
                      * Format: int64
-                     * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
+                     * @description ID of the Primary IP.
                      * @example 42
                      */
                     id?: number;
@@ -19492,7 +19449,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -19504,19 +19461,19 @@ export interface paths {
               /** Action */
               action?: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -19529,43 +19486,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -19597,7 +19550,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Resource. */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -19608,19 +19561,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -19633,46 +19586,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -19735,7 +19684,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -19759,19 +19708,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -19784,43 +19733,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -19838,7 +19783,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -19861,19 +19806,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -19886,43 +19831,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -19951,7 +19892,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -19987,19 +19928,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20012,43 +19953,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -20064,7 +20001,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20095,19 +20032,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20120,43 +20057,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -20174,7 +20107,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20203,19 +20136,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20228,43 +20161,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -20280,7 +20209,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20308,19 +20237,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20333,43 +20262,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -20400,7 +20325,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20428,19 +20353,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20453,43 +20378,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -20509,7 +20430,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20521,13 +20442,18 @@ export interface paths {
              * @example my image
              */
             description?: string;
-            /** @description User-defined labels (key-value pairs) */
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
             labels?: {
-              /**
-               * @description New label
-               * @example value
-               */
-              labelkey?: string;
+              [key: string]: string;
             };
             /**
              * @description Type of Image to create.
@@ -20551,19 +20477,19 @@ export interface paths {
               /** Action */
               action?: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20576,43 +20502,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               image?: {
                 /**
@@ -20668,9 +20590,7 @@ export interface paths {
                 disk_size: number;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Image.
                  * @example 42
                  */
                 id: number;
@@ -20747,7 +20667,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20771,19 +20691,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20796,43 +20716,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -20848,7 +20764,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20860,19 +20776,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20885,43 +20801,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -20939,7 +20851,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -20951,19 +20863,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -20976,43 +20888,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21032,7 +20940,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21044,19 +20952,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21069,43 +20977,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21123,7 +21027,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21135,19 +21039,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21160,43 +21064,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21218,7 +21118,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21253,19 +21153,19 @@ export interface paths {
               /** Action */
               action?: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21278,43 +21178,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               /**
                * @description Password that will be set for this Server once the Action succeeds
@@ -21335,7 +21231,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21347,19 +21243,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21372,43 +21268,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21424,7 +21316,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21436,19 +21328,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21461,43 +21353,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21513,7 +21401,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21525,19 +21413,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21550,43 +21438,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21606,7 +21490,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21630,19 +21514,19 @@ export interface paths {
               /** Action */
               action?: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21655,43 +21539,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               /** @description New root password when not using SSH keys */
               root_password?: string | null;
@@ -21709,7 +21589,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21721,19 +21601,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21746,43 +21626,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21798,7 +21674,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21810,19 +21686,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21835,43 +21711,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               /**
                * @description VNC password to use for this connection (this password only works in combination with a wss_url with valid token)
@@ -21897,7 +21769,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -21909,19 +21781,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -21934,43 +21806,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -21990,7 +21858,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -22006,19 +21874,19 @@ export interface paths {
               /** Action */
               action?: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -22031,43 +21899,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               /**
                * @description Password that will be set for this Server once the Action succeeds
@@ -22091,7 +21955,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -22103,19 +21967,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -22128,43 +21992,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -22180,9 +22040,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -22194,19 +22054,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -22219,43 +22079,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -22303,7 +22159,7 @@ export interface paths {
           step?: string;
         };
         path: {
-          /** @description ID of the Server */
+          /** @description ID of the Server. */
           id: number;
         };
       };
@@ -22366,7 +22222,10 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          /** @description Can be used multiple times. */
+          /**
+           * @description Sort resources by field and direction. Can be used multiple times. For more
+           * information, see "[Sorting](#sorting)".
+           */
           sort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc";
           /**
            * @description Filter resources by their name. The response will only contain the resources
@@ -22392,7 +22251,7 @@ export interface paths {
           content: {
             "application/json": {
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -22446,9 +22305,7 @@ export interface paths {
                   fingerprint: string;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the SSH Key.
                    * @example 42
                    */
                   id: number;
@@ -22489,8 +22346,19 @@ export interface paths {
       requestBody?: {
         content: {
           "application/json": {
-            /** @description User-defined labels (key-value pairs) */
-            labels?: Record<string, never>;
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description Name of the SSH key
              * @example My ssh key
@@ -22522,9 +22390,7 @@ export interface paths {
                 fingerprint: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the SSH Key.
                  * @example 42
                  */
                 id: number;
@@ -22566,7 +22432,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the SSH key */
+          /** @description ID of the SSH Key. */
           id: number;
         };
       };
@@ -22588,9 +22454,7 @@ export interface paths {
                 fingerprint: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the SSH Key.
                  * @example 42
                  */
                 id: number;
@@ -22632,7 +22496,7 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the SSH key */
+          /** @description ID of the SSH Key. */
           id: number;
         };
       };
@@ -22640,12 +22504,18 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description New name Name to set
              * @example My ssh key
@@ -22672,9 +22542,7 @@ export interface paths {
                 fingerprint: string;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the SSH Key.
                  * @example 42
                  */
                 id: number;
@@ -22714,7 +22582,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the SSH key */
+          /** @description ID of the SSH Key. */
           id: number;
         };
       };
@@ -22763,7 +22631,7 @@ export interface paths {
           content: {
             "application/json": {
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -22817,9 +22685,7 @@ export interface paths {
                   format: string | null;
                   /**
                    * Format: int64
-                   * @description ID of the Resource.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
+                   * @description ID of the Volume.
                    * @example 42
                    */
                   id: number;
@@ -22844,45 +22710,51 @@ export interface paths {
                   /** @description Location of the Volume. Volume can only be attached to Servers in the same Location. */
                   location: {
                     /**
-                     * @description City the Location is closest to
+                     * @description Name of the closest city to the Location.
+                     *
+                     * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                     *
                      * @example Falkenstein
                      */
                     city: string;
                     /**
-                     * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                     * @description Country the Location resides in.
+                     *
+                     * ISO 3166-1 alpha-2 code of the country.
+                     *
                      * @example DE
                      */
                     country: string;
                     /**
-                     * @description Description of the Location
+                     * @description Humand readable description of the Location.
                      * @example Falkenstein DC Park 1
                      */
                     description: string;
                     /**
                      * Format: int64
-                     * @description ID of the Location
-                     * @example 1
+                     * @description ID of the Location.
+                     * @example 42
                      */
                     id: number;
                     /**
                      * Format: double
-                     * @description Latitude of the city closest to the Location
+                     * @description Latitude of the city closest to the Location.
                      * @example 50.47612
                      */
                     latitude: number;
                     /**
                      * Format: double
-                     * @description Longitude of the city closest to the Location
+                     * @description Longitude of the city closest to the Location.
                      * @example 12.370071
                      */
                     longitude: number;
                     /**
-                     * @description Unique identifier of the Location
+                     * @description Unique identifier of the Location.
                      * @example fsn1
                      */
                     name: string;
                     /**
-                     * @description Name of network zone this Location resides in
+                     * @description Name of the Network Zone this Location resides in.
                      * @example eu-central
                      */
                     network_zone: string;
@@ -22966,12 +22838,18 @@ export interface paths {
              */
             format?: string;
             /**
-             * @description User-defined labels (key-value pairs)
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
              * @example {
-             *   "labelkey": "value"
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
              * }
              */
-            labels?: Record<string, never>;
+            labels?: {
+              [key: string]: string;
+            };
             /**
              * @description Location to create the Volume in (can be omitted if Server is specified)
              * @example nbg1
@@ -23007,19 +22885,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -23032,59 +22910,55 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
               next_actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -23097,43 +22971,39 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               volume: {
                 /**
@@ -23148,9 +23018,7 @@ export interface paths {
                 format: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Volume.
                  * @example 42
                  */
                 id: number;
@@ -23175,45 +23043,51 @@ export interface paths {
                 /** @description Location of the Volume. Volume can only be attached to Servers in the same Location. */
                 location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
@@ -23291,19 +23165,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -23316,46 +23190,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -23422,19 +23292,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -23447,43 +23317,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -23499,7 +23365,7 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
@@ -23521,9 +23387,7 @@ export interface paths {
                 format: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Volume.
                  * @example 42
                  */
                 id: number;
@@ -23548,45 +23412,51 @@ export interface paths {
                 /** @description Location of the Volume. Volume can only be attached to Servers in the same Location. */
                 location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
@@ -23636,17 +23506,25 @@ export interface paths {
     put: {
       parameters: {
         path: {
-          /** @description ID of the Volume to update */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
       requestBody?: {
         content: {
           "application/json": {
-            /** @description User-defined labels (key-value pairs) */
+            /**
+             * @description User-defined labels (`key/value` pairs) for the Resource.
+             * For more information, see "[Labels](#labels)".
+             *
+             * @example {
+             *   "environment": "prod",
+             *   "example.com/my": "label",
+             *   "just-a-key": ""
+             * }
+             */
             labels?: {
-              /** @example value */
-              labelkey?: string;
+              [key: string]: string;
             };
             /**
              * @description New Volume name
@@ -23674,9 +23552,7 @@ export interface paths {
                 format: string | null;
                 /**
                  * Format: int64
-                 * @description ID of the Resource.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
+                 * @description ID of the Volume.
                  * @example 42
                  */
                 id: number;
@@ -23701,45 +23577,51 @@ export interface paths {
                 /** @description Location of the Volume. Volume can only be attached to Servers in the same Location. */
                 location: {
                   /**
-                   * @description City the Location is closest to
+                   * @description Name of the closest city to the Location.
+                   *
+                   * City name or city name and state in short form. E.g. `Falkenstein` or `Ashburn, VA`.
+                   *
                    * @example Falkenstein
                    */
                   city: string;
                   /**
-                   * @description ISO 3166-1 alpha-2 code of the country the Location resides in
+                   * @description Country the Location resides in.
+                   *
+                   * ISO 3166-1 alpha-2 code of the country.
+                   *
                    * @example DE
                    */
                   country: string;
                   /**
-                   * @description Description of the Location
+                   * @description Humand readable description of the Location.
                    * @example Falkenstein DC Park 1
                    */
                   description: string;
                   /**
                    * Format: int64
-                   * @description ID of the Location
-                   * @example 1
+                   * @description ID of the Location.
+                   * @example 42
                    */
                   id: number;
                   /**
                    * Format: double
-                   * @description Latitude of the city closest to the Location
+                   * @description Latitude of the city closest to the Location.
                    * @example 50.47612
                    */
                   latitude: number;
                   /**
                    * Format: double
-                   * @description Longitude of the city closest to the Location
+                   * @description Longitude of the city closest to the Location.
                    * @example 12.370071
                    */
                   longitude: number;
                   /**
-                   * @description Unique identifier of the Location
+                   * @description Unique identifier of the Location.
                    * @example fsn1
                    */
                   name: string;
                   /**
-                   * @description Name of network zone this Location resides in
+                   * @description Name of the Network Zone this Location resides in.
                    * @example eu-central
                    */
                   network_zone: string;
@@ -23787,7 +23669,7 @@ export interface paths {
     delete: {
       parameters: {
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
@@ -23823,7 +23705,7 @@ export interface paths {
           per_page?: number;
         };
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
@@ -23834,19 +23716,19 @@ export interface paths {
             "application/json": {
               actions: ({
                   /**
-                   * @description Command executed in the Action
+                   * @description Command executed in the Action.
                    * @example start_resource
                    */
                   command: string;
-                  /** @description Error message for the Action if error occurred, otherwise null */
+                  /** @description Error message for the Action if an error occurred, otherwise null. */
                   error: {
                     /**
-                     * @description Fixed machine readable code
+                     * @description Fixed error code for machines.
                      * @example action_failed
                      */
                     code: string;
                     /**
-                     * @description Humanized error message
+                     * @description Error message for humans.
                      * @example Action failed
                      */
                     message: string;
@@ -23859,46 +23741,42 @@ export interface paths {
                   /**
                    * Format: int64
                    * @description ID of the Action.
-                   * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                   *
                    * @example 42
                    */
                   id: number;
                   /**
                    * Format: int32
-                   * @description Progress of Action in percent
+                   * @description Progress of the Action in percent.
                    * @example 100
                    */
                   progress: number;
-                  /** @description Resources the Action relates to */
+                  /** @description Resources the Action relates to. */
                   resources: {
                       /**
                        * Format: int64
                        * @description ID of the Resource.
-                       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                       *
                        * @example 42
                        */
                       id: number;
                       /**
-                       * @description Type of resource referenced
+                       * @description Type of the Resource.
                        * @example server
                        */
                       type: string;
                     }[];
                   /**
-                   * @description Point in time when the Action was started (in ISO-8601 format)
+                   * @description Point in time when the Action was started (in ISO-8601 format).
                    * @example 2016-01-30T23:55:00+00:00
                    */
                   started: string;
                   /**
-                   * @description Status of the Action
+                   * @description Status of the Action.
                    * @enum {string}
                    */
-                  status: "success" | "running" | "error";
+                  status: "running" | "success" | "error";
                 })[];
               /** ListMeta */
-              meta?: {
+              meta: {
                 /** @description See "[Pagination](#pagination)" for more information. */
                 pagination: {
                   /**
@@ -23953,7 +23831,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
@@ -23982,19 +23860,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -24007,43 +23885,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -24059,7 +23933,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
@@ -24082,19 +23956,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -24107,43 +23981,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -24159,7 +24029,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
@@ -24171,19 +24041,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -24196,43 +24066,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -24248,7 +24114,7 @@ export interface paths {
     post: {
       parameters: {
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
         };
       };
@@ -24271,19 +24137,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -24296,43 +24162,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -24348,9 +24210,9 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          /** @description ID of the Volume */
+          /** @description ID of the Volume. */
           id: number;
-          /** @description ID of the Action */
+          /** @description ID of the Action. */
           action_id: number;
         };
       };
@@ -24362,19 +24224,19 @@ export interface paths {
               /** Action */
               action: {
                 /**
-                 * @description Command executed in the Action
+                 * @description Command executed in the Action.
                  * @example start_resource
                  */
                 command: string;
-                /** @description Error message for the Action if error occurred, otherwise null */
+                /** @description Error message for the Action if an error occurred, otherwise null. */
                 error: {
                   /**
-                   * @description Fixed machine readable code
+                   * @description Fixed error code for machines.
                    * @example action_failed
                    */
                   code: string;
                   /**
-                   * @description Humanized error message
+                   * @description Error message for humans.
                    * @example Action failed
                    */
                   message: string;
@@ -24387,43 +24249,39 @@ export interface paths {
                 /**
                  * Format: int64
                  * @description ID of the Action.
-                 * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                 *
                  * @example 42
                  */
                 id: number;
                 /**
                  * Format: int32
-                 * @description Progress of Action in percent
+                 * @description Progress of the Action in percent.
                  * @example 100
                  */
                 progress: number;
-                /** @description Resources the Action relates to */
+                /** @description Resources the Action relates to. */
                 resources: {
                     /**
                      * Format: int64
                      * @description ID of the Resource.
-                     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-                     *
                      * @example 42
                      */
                     id: number;
                     /**
-                     * @description Type of resource referenced
+                     * @description Type of the Resource.
                      * @example server
                      */
                     type: string;
                   }[];
                 /**
-                 * @description Point in time when the Action was started (in ISO-8601 format)
+                 * @description Point in time when the Action was started (in ISO-8601 format).
                  * @example 2016-01-30T23:55:00+00:00
                  */
                 started: string;
                 /**
-                 * @description Status of the Action
+                 * @description Status of the Action.
                  * @enum {string}
                  */
-                status: "success" | "running" | "error";
+                status: "running" | "success" | "error";
               };
             };
           };
@@ -24440,19 +24298,19 @@ export interface components {
     /** Action */
     Action: {
       /**
-       * @description Command executed in the Action
+       * @description Command executed in the Action.
        * @example start_resource
        */
       command: string;
-      /** @description Error message for the Action if error occurred, otherwise null */
+      /** @description Error message for the Action if an error occurred, otherwise null. */
       error: {
         /**
-         * @description Fixed machine readable code
+         * @description Fixed error code for machines.
          * @example action_failed
          */
         code: string;
         /**
-         * @description Humanized error message
+         * @description Error message for humans.
          * @example Action failed
          */
         message: string;
@@ -24465,49 +24323,43 @@ export interface components {
       /**
        * Format: int64
        * @description ID of the Action.
-       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-       *
        * @example 42
        */
       id: number;
       /**
        * Format: int32
-       * @description Progress of Action in percent
+       * @description Progress of the Action in percent.
        * @example 100
        */
       progress: number;
-      /** @description Resources the Action relates to */
+      /** @description Resources the Action relates to. */
       resources: {
           /**
            * Format: int64
            * @description ID of the Resource.
-           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-           *
            * @example 42
            */
           id: number;
           /**
-           * @description Type of resource referenced
+           * @description Type of the Resource.
            * @example server
            */
           type: string;
         }[];
       /**
-       * @description Point in time when the Action was started (in ISO-8601 format)
+       * @description Point in time when the Action was started (in ISO-8601 format).
        * @example 2016-01-30T23:55:00+00:00
        */
       started: string;
       /**
-       * @description Status of the Action
+       * @description Status of the Action.
        * @enum {string}
        */
-      status: "success" | "running" | "error";
+      status: "running" | "success" | "error";
     };
     /**
      * Format: int64
      * @description ID of the Action.
-     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-     *
      * @example 42
      */
     ActionID: number;
@@ -24515,19 +24367,19 @@ export interface components {
     ActionListResponse: {
       actions: ({
           /**
-           * @description Command executed in the Action
+           * @description Command executed in the Action.
            * @example start_resource
            */
           command: string;
-          /** @description Error message for the Action if error occurred, otherwise null */
+          /** @description Error message for the Action if an error occurred, otherwise null. */
           error: {
             /**
-             * @description Fixed machine readable code
+             * @description Fixed error code for machines.
              * @example action_failed
              */
             code: string;
             /**
-             * @description Humanized error message
+             * @description Error message for humans.
              * @example Action failed
              */
             message: string;
@@ -24540,46 +24392,106 @@ export interface components {
           /**
            * Format: int64
            * @description ID of the Action.
-           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-           *
            * @example 42
            */
           id: number;
           /**
            * Format: int32
-           * @description Progress of Action in percent
+           * @description Progress of the Action in percent.
            * @example 100
            */
           progress: number;
-          /** @description Resources the Action relates to */
+          /** @description Resources the Action relates to. */
           resources: {
               /**
                * Format: int64
                * @description ID of the Resource.
-               * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-               *
                * @example 42
                */
               id: number;
               /**
-               * @description Type of resource referenced
+               * @description Type of the Resource.
                * @example server
                */
               type: string;
             }[];
           /**
-           * @description Point in time when the Action was started (in ISO-8601 format)
+           * @description Point in time when the Action was started (in ISO-8601 format).
            * @example 2016-01-30T23:55:00+00:00
            */
           started: string;
           /**
-           * @description Status of the Action
+           * @description Status of the Action.
            * @enum {string}
            */
-          status: "success" | "running" | "error";
+          status: "running" | "success" | "error";
+        })[];
+    };
+    /** ActionListResponseWithMeta */
+    ActionListResponseWithMeta: {
+      actions: ({
+          /**
+           * @description Command executed in the Action.
+           * @example start_resource
+           */
+          command: string;
+          /** @description Error message for the Action if an error occurred, otherwise null. */
+          error: {
+            /**
+             * @description Fixed error code for machines.
+             * @example action_failed
+             */
+            code: string;
+            /**
+             * @description Error message for humans.
+             * @example Action failed
+             */
+            message: string;
+          } | null;
+          /**
+           * @description Point in time when the Action was finished (in ISO-8601 format). Only set if the Action is finished otherwise null.
+           * @example 2016-01-30T23:55:00+00:00
+           */
+          finished: string | null;
+          /**
+           * Format: int64
+           * @description ID of the Action.
+           * @example 42
+           */
+          id: number;
+          /**
+           * Format: int32
+           * @description Progress of the Action in percent.
+           * @example 100
+           */
+          progress: number;
+          /** @description Resources the Action relates to. */
+          resources: {
+              /**
+               * Format: int64
+               * @description ID of the Resource.
+               * @example 42
+               */
+              id: number;
+              /**
+               * @description Type of the Resource.
+               * @example server
+               */
+              type: string;
+            }[];
+          /**
+           * @description Point in time when the Action was started (in ISO-8601 format).
+           * @example 2016-01-30T23:55:00+00:00
+           */
+          started: string;
+          /**
+           * @description Status of the Action.
+           * @enum {string}
+           */
+          status: "running" | "success" | "error";
         })[];
       /** ListMeta */
-      meta?: {
+      meta: {
         /** @description See "[Pagination](#pagination)" for more information. */
         pagination: {
           /**
@@ -24624,19 +24536,19 @@ export interface components {
     /** ActionNullable */
     ActionNullable: ({
       /**
-       * @description Command executed in the Action
+       * @description Command executed in the Action.
        * @example start_resource
        */
       command: string;
-      /** @description Error message for the Action if error occurred, otherwise null */
+      /** @description Error message for the Action if an error occurred, otherwise null. */
       error: {
         /**
-         * @description Fixed machine readable code
+         * @description Fixed error code for machines.
          * @example action_failed
          */
         code: string;
         /**
-         * @description Humanized error message
+         * @description Error message for humans.
          * @example Action failed
          */
         message: string;
@@ -24649,62 +24561,58 @@ export interface components {
       /**
        * Format: int64
        * @description ID of the Action.
-       * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-       *
        * @example 42
        */
       id: number;
       /**
        * Format: int32
-       * @description Progress of Action in percent
+       * @description Progress of the Action in percent.
        * @example 100
        */
       progress: number;
-      /** @description Resources the Action relates to */
+      /** @description Resources the Action relates to. */
       resources: {
           /**
            * Format: int64
            * @description ID of the Resource.
-           * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-           *
            * @example 42
            */
           id: number;
           /**
-           * @description Type of resource referenced
+           * @description Type of the Resource.
            * @example server
            */
           type: string;
         }[];
       /**
-       * @description Point in time when the Action was started (in ISO-8601 format)
+       * @description Point in time when the Action was started (in ISO-8601 format).
        * @example 2016-01-30T23:55:00+00:00
        */
       started: string;
       /**
-       * @description Status of the Action
+       * @description Status of the Action.
        * @enum {string}
        */
-      status: "success" | "running" | "error";
+      status: "running" | "success" | "error";
     }) | null;
     /** ActionResponse */
     ActionResponse: {
       /** Action */
       action: {
         /**
-         * @description Command executed in the Action
+         * @description Command executed in the Action.
          * @example start_resource
          */
         command: string;
-        /** @description Error message for the Action if error occurred, otherwise null */
+        /** @description Error message for the Action if an error occurred, otherwise null. */
         error: {
           /**
-           * @description Fixed machine readable code
+           * @description Fixed error code for machines.
            * @example action_failed
            */
           code: string;
           /**
-           * @description Humanized error message
+           * @description Error message for humans.
            * @example Action failed
            */
           message: string;
@@ -24717,50 +24625,58 @@ export interface components {
         /**
          * Format: int64
          * @description ID of the Action.
-         * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-         *
          * @example 42
          */
         id: number;
         /**
          * Format: int32
-         * @description Progress of Action in percent
+         * @description Progress of the Action in percent.
          * @example 100
          */
         progress: number;
-        /** @description Resources the Action relates to */
+        /** @description Resources the Action relates to. */
         resources: {
             /**
              * Format: int64
              * @description ID of the Resource.
-             * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-             *
              * @example 42
              */
             id: number;
             /**
-             * @description Type of resource referenced
+             * @description Type of the Resource.
              * @example server
              */
             type: string;
           }[];
         /**
-         * @description Point in time when the Action was started (in ISO-8601 format)
+         * @description Point in time when the Action was started (in ISO-8601 format).
          * @example 2016-01-30T23:55:00+00:00
          */
         started: string;
         /**
-         * @description Status of the Action
+         * @description Status of the Action.
          * @enum {string}
          */
-        status: "success" | "running" | "error";
+        status: "running" | "success" | "error";
       };
     };
+    /**
+     * Format: int64
+     * @description ID of the Certificate.
+     * @example 42
+     */
+    CertificateID: number;
     /**
      * @description Point in time when the Resource was created (in ISO-8601 format).
      * @example 2016-01-30T23:55:00+00:00
      */
     Created: string;
+    /**
+     * Format: int64
+     * @description ID of the Datacenter.
+     * @example 42
+     */
+    DatacenterID: number;
     /**
      * DeprecationInfo
      * @description Describes if, when and how the resource is deprecated. If this field is
@@ -24796,9 +24712,19 @@ export interface components {
     Description: string | null;
     /**
      * Format: int64
+     * @description ID of the Firewall.
+     * @example 42
+     */
+    FirewallID: number;
+    /**
+     * Format: int64
+     * @description ID of the Floating IP.
+     * @example 42
+     */
+    FloatingIPID: number;
+    /**
+     * Format: int64
      * @description ID of the Resource.
-     * Limited to 52 bits to ensure compatibility with JSON double precision floats.
-     *
      * @example 42
      */
     ID: number;
@@ -24807,6 +24733,18 @@ export interface components {
      * @example 131.232.99.1
      */
     IP: string;
+    /**
+     * Format: int64
+     * @description ID of the ISO.
+     * @example 42
+     */
+    ISOID: number;
+    /**
+     * Format: int64
+     * @description ID of the Image.
+     * @example 42
+     */
+    ImageID: number;
     /**
      * @description User-defined labels (`key/value` pairs) for the Resource.
      * For more information, see "[Labels](#labels)".
@@ -24863,10 +24801,34 @@ export interface components {
       };
     };
     /**
+     * Format: int64
+     * @description ID of the Load Balancer.
+     * @example 42
+     */
+    LoadBalancerID: number;
+    /**
+     * Format: int64
+     * @description ID of the Load Balancer Type.
+     * @example 42
+     */
+    LoadBalancerTypeID: number;
+    /**
+     * Format: int64
+     * @description ID of the Location.
+     * @example 42
+     */
+    LocationID: number;
+    /**
      * @description Name of the Resource. Must be unique per Project.
      * @example my-resource
      */
     Name: string;
+    /**
+     * Format: int64
+     * @description ID of the Network.
+     * @example 42
+     */
+    NetworkID: number;
     /** @description See "[Pagination](#pagination)" for more information. */
     PaginationOffsetPagination: {
       /**
@@ -24906,6 +24868,12 @@ export interface components {
        */
       total_entries: number | null;
     };
+    /**
+     * Format: int64
+     * @description ID of the Placement Group.
+     * @example 42
+     */
+    PlacementGroupID: number;
     Prices: {
       /**
        * @description Name of the Location the price is for.
@@ -24943,6 +24911,12 @@ export interface components {
         net: string;
       };
     };
+    /**
+     * Format: int64
+     * @description ID of the Primary IP.
+     * @example 42
+     */
+    PrimaryIPID: number;
     /** @description Protection configuration for the Resource. */
     Protection: {
       /**
@@ -24951,6 +24925,24 @@ export interface components {
        */
       delete: boolean;
     };
+    /**
+     * Format: int64
+     * @description ID of the SSH Key.
+     * @example 42
+     */
+    SSHKeyID: number;
+    /**
+     * Format: int64
+     * @description ID of the Server.
+     * @example 42
+     */
+    ServerID: number;
+    /**
+     * Format: int64
+     * @description ID of the Server Type.
+     * @example 42
+     */
+    ServerTypeID: number;
     /**
      * @description Point in time (in ISO-8601 format).
      * @example 2016-01-30T23:55:00+00:00
@@ -24961,13 +24953,53 @@ export interface components {
      * @example 2016-01-30T23:55:00+00:00
      */
     TimestampNullable: string | null;
+    /**
+     * Format: int64
+     * @description ID of the Volume.
+     * @example 42
+     */
+    VolumeID: number;
   };
   responses: never;
   parameters: {
     /** @description ID of the Action. */
+    PathActionActionID: number;
+    /** @description ID of the Action. */
     PathActionID: number;
+    /** @description ID of the Certificate. */
+    PathCertificateID: number;
+    /** @description ID of the Datacenter. */
+    PathDatacenterID: number;
+    /** @description ID of the Firewall. */
+    PathFirewallID: number;
+    /** @description ID of the Floating IP. */
+    PathFloatingIPID: number;
     /** @description ID of the Resource. */
     PathID: number;
+    /** @description ID of the ISO. */
+    PathISOID: number;
+    /** @description ID of the Image. */
+    PathImageID: number;
+    /** @description ID of the Load Balancer. */
+    PathLoadBalancerID: number;
+    /** @description ID of the Load Balancer Type. */
+    PathLoadBalancerTypeID: number;
+    /** @description ID of the Location. */
+    PathLocationID: number;
+    /** @description ID of the Network. */
+    PathNetworkID: number;
+    /** @description ID of the Placement Group. */
+    PathPlacementGroupID: number;
+    /** @description ID of the Primary IP. */
+    PathPrimaryIPID: number;
+    /** @description ID of the SSH Key. */
+    PathSSHKeyID: number;
+    /** @description ID of the Server. */
+    PathServerID: number;
+    /** @description ID of the Server Type. */
+    PathServerTypeID: number;
+    /** @description ID of the Volume. */
+    PathVolumeID: number;
     /**
      * @description Filter the actions by ID. Can be used multiple times. The response will only contain
      * actions matching the specified IDs.
@@ -25001,7 +25033,17 @@ export interface components {
      * @description Sort resources by field and direction. Can be used multiple times. For more
      * information, see "[Sorting](#sorting)".
      */
-    QuerySort?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
+    QuerySortByIDAndCreated?: "id" | "id:asc" | "id:desc" | "created" | "created:asc" | "created:desc";
+    /**
+     * @description Sort resources by field and direction. Can be used multiple times. For more
+     * information, see "[Sorting](#sorting)".
+     */
+    QuerySortByIDAndName?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc";
+    /**
+     * @description Sort resources by field and direction. Can be used multiple times. For more
+     * information, see "[Sorting](#sorting)".
+     */
+    QuerySortByIDAndNameAndCreated?: "id" | "id:asc" | "id:desc" | "name" | "name:asc" | "name:desc" | "created" | "created:asc" | "created:desc";
   };
   requestBodies: never;
   headers: never;
