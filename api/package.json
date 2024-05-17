@@ -16,7 +16,7 @@
     "build": "npm run prebuild && npm run download && builder index.ts:index.js"
   },
   "dependencies": {
-    "openapi-fetch": "^0.9.5"
+    "openapi-fetch": "^0.9.6"
   },
   "devDependencies": {
     "@boywithkeyboard/builder": "^0.14.0",
