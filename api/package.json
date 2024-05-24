@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@boywithkeyboard/builder": "^0.14.0",
-    "@types/node": "^20.12.9",
+    "@types/node": "^20.12.12",
     "openapi-typescript": "^6.7.5",
     "typescript": "^5.4.5"
   },
