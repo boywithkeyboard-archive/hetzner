@@ -3,10 +3,10 @@ updates:
   - package-ecosystem: npm
     directory: /api
     schedule:
-      interval: daily
+      interval: weekly
     versioning-strategy: increase
 
   - package-ecosystem: github-actions
-    directory: /api
+    directory: /
     schedule:
-      interval: daily
+      interval: weekly
