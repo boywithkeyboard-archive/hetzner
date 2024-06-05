@@ -10,21 +10,37 @@
     "hetzner",
     "openapi"
   ],
+  "main": "./build/index.js",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "./build"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./build/index.js",
+        "types": "./build/index.d.ts"
+      }
+    }
+  },
   "scripts": {
     "download": "openapi-typescript https://docs.hetzner.cloud/spec.json -o ./src/spec.ts",
     "prebuild": "cd .. && node .github/copyLicense.mjs",
-    "build": "npm run prebuild && npm run download && builder index.ts:index.js"
+    "build": "rimraf build && npm run prebuild && npm run download && tsc && esbuild src/index.ts --bundle --minify --format=esm --external:openapi-fetch --outfile=build/index.js"
   },
   "dependencies": {
     "openapi-fetch": "^0.9.7"
   },
   "devDependencies": {
-    "@boywithkeyboard/builder": "^0.14.0",
     "@types/node": "^20.12.12",
+    "esbuild": "^0.21.4",
     "openapi-typescript": "^6.7.6",
+    "rimraf": "^5.0.7",
     "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "type": "module"
 }
