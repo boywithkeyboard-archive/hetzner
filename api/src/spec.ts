@@ -11672,7 +11672,7 @@ export interface paths {
                    */
                   id: number;
                   /**
-                   * @description IPv4 prefix of the whole Network
+                   * @description IP range in CIDR block notation of the whole network.
                    * @example 10.0.0.0/16
                    */
                   ip_range: string;
@@ -11712,12 +11712,36 @@ export interface paths {
                   /** @description Array of routes set in this Network */
                   routes: {
                       /**
-                       * @description Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.
+                       * @description Destination network or host of the route.
+                       *
+                       * Packages addressed for IPs matching the destination IP prefix will be send to the specified gateway.
+                       *
+                       * Must be one of
+                       * * private IPv4 ranges of RFC1918
+                       * * or `0.0.0.0/0`.
+                       *
+                       * Must not overlap with
+                       * * an existing ip_range in any subnets
+                       * * or with any destinations in other routes
+                       * * or with `172.31.1.1`.
+                       *
+                       * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                       *
                        * @example 10.100.1.0/24
                        */
                       destination: string;
                       /**
-                       * @description Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers.
+                       * @description Gateway of the route.
+                       *
+                       * Packages addressed for the specified destination will be send to this IP address.
+                       *
+                       * Cannot be
+                       * * the first IP of the networks ip_range,
+                       * * an IP behind a vSwitch or
+                       * * `172.31.1.1`.
+                       *
+                       * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                       *
                        * @example 10.0.1.1
                        */
                       gateway: string;
@@ -11737,7 +11761,7 @@ export interface paths {
                        */
                       gateway: string;
                       /**
-                       * @description Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.
+                       * @description IP range in CIDR block notation of the whole subnetwork.
                        * @example 10.0.1.0/24
                        */
                       ip_range?: string;
@@ -11777,12 +11801,20 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.
+             * @description Toggle to expose routes to the networks vSwitch.
+             *
+             * Indicates if the routes from this network should be exposed to the vSwitch in this network. Only takes effect if a vSwitch is setup in this network.
+             *
              * @example false
              */
             expose_routes_to_vswitch?: boolean;
             /**
-             * @description IP range of the whole network which must span all included subnets. Must be one of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.
+             * @description IP range in CIDR block notation of the whole network.
+             *
+             * Must span all included subnets. Must be one of the private IPv4 ranges of RFC1918.
+             *
+             * Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.
+             *
              * @example 10.0.0.0/16
              */
             ip_range: string;
@@ -11804,15 +11836,39 @@ export interface paths {
              * @example mynet
              */
             name: string;
-            /** @description Array of routes set in this network. The destination of the route must be one of the private IPv4 ranges of RFC1918. The gateway must be a subnet/IP of the ip_range of the network object. The destination must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. The gateway cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1. */
+            /** @description Array of routes set in this network. */
             routes?: {
                 /**
-                 * @description Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.
+                 * @description Destination network or host of the route.
+                 *
+                 * Packages addressed for IPs matching the destination IP prefix will be send to the specified gateway.
+                 *
+                 * Must be one of
+                 * * private IPv4 ranges of RFC1918
+                 * * or `0.0.0.0/0`.
+                 *
+                 * Must not overlap with
+                 * * an existing ip_range in any subnets
+                 * * or with any destinations in other routes
+                 * * or with `172.31.1.1`.
+                 *
+                 * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                 *
                  * @example 10.100.1.0/24
                  */
                 destination: string;
                 /**
-                 * @description Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers.
+                 * @description Gateway of the route.
+                 *
+                 * Packages addressed for the specified destination will be send to this IP address.
+                 *
+                 * Cannot be
+                 * * the first IP of the networks ip_range,
+                 * * an IP behind a vSwitch or
+                 * * `172.31.1.1`.
+                 *
+                 * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                 *
                  * @example 10.0.1.1
                  */
                 gateway: string;
@@ -11820,12 +11876,22 @@ export interface paths {
             /** @description Array of subnets allocated. */
             subnets?: ({
                 /**
-                 * @description Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.
+                 * @description IP range in CIDR block notation of the whole subnetwork.
+                 *
+                 * Must be a subnet of the parent Network `ip_range`.
+                 *
+                 * Must not overlap with any other subnets or with any destinations in routes.
+                 *
+                 * Minimum network size is /30. We highly recommend that you pick a larger network with a /24 netmask.
+                 *
                  * @example 10.0.1.0/24
                  */
                 ip_range?: string;
                 /**
-                 * @description Name of Network zone. The Location object contains the `network_zone` property each Location belongs to.
+                 * @description Name of Network zone.
+                 *
+                 * The Location object contains the `network_zone` property each Location belongs to.
+                 *
                  * @example eu-central
                  */
                 network_zone: string;
@@ -11836,7 +11902,10 @@ export interface paths {
                 type: "cloud" | "server" | "vswitch";
                 /**
                  * Format: int64
-                 * @description ID of the robot vSwitch. Must be supplied if the subnet is of type vswitch.
+                 * @description ID of the robot vSwitch.
+                 *
+                 * Must only be supplied for subnets of type vswitch.
+                 *
                  * @example 1000
                  */
                 vswitch_id?: number;
@@ -11867,7 +11936,7 @@ export interface paths {
                  */
                 id: number;
                 /**
-                 * @description IPv4 prefix of the whole Network
+                 * @description IP range in CIDR block notation of the whole network.
                  * @example 10.0.0.0/16
                  */
                 ip_range: string;
@@ -11907,12 +11976,36 @@ export interface paths {
                 /** @description Array of routes set in this Network */
                 routes: {
                     /**
-                     * @description Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.
+                     * @description Destination network or host of the route.
+                     *
+                     * Packages addressed for IPs matching the destination IP prefix will be send to the specified gateway.
+                     *
+                     * Must be one of
+                     * * private IPv4 ranges of RFC1918
+                     * * or `0.0.0.0/0`.
+                     *
+                     * Must not overlap with
+                     * * an existing ip_range in any subnets
+                     * * or with any destinations in other routes
+                     * * or with `172.31.1.1`.
+                     *
+                     * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                     *
                      * @example 10.100.1.0/24
                      */
                     destination: string;
                     /**
-                     * @description Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers.
+                     * @description Gateway of the route.
+                     *
+                     * Packages addressed for the specified destination will be send to this IP address.
+                     *
+                     * Cannot be
+                     * * the first IP of the networks ip_range,
+                     * * an IP behind a vSwitch or
+                     * * `172.31.1.1`.
+                     *
+                     * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                     *
                      * @example 10.0.1.1
                      */
                     gateway: string;
@@ -11932,7 +12025,7 @@ export interface paths {
                      */
                     gateway: string;
                     /**
-                     * @description Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.
+                     * @description IP range in CIDR block notation of the whole subnetwork.
                      * @example 10.0.1.0/24
                      */
                     ip_range?: string;
@@ -12223,7 +12316,7 @@ export interface paths {
                  */
                 id: number;
                 /**
-                 * @description IPv4 prefix of the whole Network
+                 * @description IP range in CIDR block notation of the whole network.
                  * @example 10.0.0.0/16
                  */
                 ip_range: string;
@@ -12263,12 +12356,36 @@ export interface paths {
                 /** @description Array of routes set in this Network */
                 routes: {
                     /**
-                     * @description Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.
+                     * @description Destination network or host of the route.
+                     *
+                     * Packages addressed for IPs matching the destination IP prefix will be send to the specified gateway.
+                     *
+                     * Must be one of
+                     * * private IPv4 ranges of RFC1918
+                     * * or `0.0.0.0/0`.
+                     *
+                     * Must not overlap with
+                     * * an existing ip_range in any subnets
+                     * * or with any destinations in other routes
+                     * * or with `172.31.1.1`.
+                     *
+                     * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                     *
                      * @example 10.100.1.0/24
                      */
                     destination: string;
                     /**
-                     * @description Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers.
+                     * @description Gateway of the route.
+                     *
+                     * Packages addressed for the specified destination will be send to this IP address.
+                     *
+                     * Cannot be
+                     * * the first IP of the networks ip_range,
+                     * * an IP behind a vSwitch or
+                     * * `172.31.1.1`.
+                     *
+                     * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                     *
                      * @example 10.0.1.1
                      */
                     gateway: string;
@@ -12288,7 +12405,7 @@ export interface paths {
                      */
                     gateway: string;
                     /**
-                     * @description Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.
+                     * @description IP range in CIDR block notation of the whole subnetwork.
                      * @example 10.0.1.0/24
                      */
                     ip_range?: string;
@@ -12334,7 +12451,10 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description Indicates if the routes from this network should be exposed to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active.
+             * @description Toggle to expose routes to the networks vSwitch.
+             *
+             * Indicates if the routes from this network should be exposed to the vSwitch in this network. Only takes effect if a vSwitch is setup in this network.
+             *
              * @example false
              */
             expose_routes_to_vswitch?: boolean;
@@ -12382,7 +12502,7 @@ export interface paths {
                  */
                 id: number;
                 /**
-                 * @description IPv4 prefix of the whole Network
+                 * @description IP range in CIDR block notation of the whole network.
                  * @example 10.0.0.0/16
                  */
                 ip_range: string;
@@ -12422,12 +12542,36 @@ export interface paths {
                 /** @description Array of routes set in this Network */
                 routes: {
                     /**
-                     * @description Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.
+                     * @description Destination network or host of the route.
+                     *
+                     * Packages addressed for IPs matching the destination IP prefix will be send to the specified gateway.
+                     *
+                     * Must be one of
+                     * * private IPv4 ranges of RFC1918
+                     * * or `0.0.0.0/0`.
+                     *
+                     * Must not overlap with
+                     * * an existing ip_range in any subnets
+                     * * or with any destinations in other routes
+                     * * or with `172.31.1.1`.
+                     *
+                     * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                     *
                      * @example 10.100.1.0/24
                      */
                     destination: string;
                     /**
-                     * @description Gateway for the route. Cannot be the first IP of the networks ip_range and also cannot be 172.31.1.1 as this IP is being used as a gateway for the public network interface of Servers.
+                     * @description Gateway of the route.
+                     *
+                     * Packages addressed for the specified destination will be send to this IP address.
+                     *
+                     * Cannot be
+                     * * the first IP of the networks ip_range,
+                     * * an IP behind a vSwitch or
+                     * * `172.31.1.1`.
+                     *
+                     * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+                     *
                      * @example 10.0.1.1
                      */
                     gateway: string;
@@ -12447,7 +12591,7 @@ export interface paths {
                      */
                     gateway: string;
                     /**
-                     * @description Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.
+                     * @description IP range in CIDR block notation of the whole subnetwork.
                      * @example 10.0.1.0/24
                      */
                     ip_range?: string;
@@ -12655,12 +12799,36 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.
+             * @description Destination network or host of the route.
+             *
+             * Packages addressed for IPs matching the destination IP prefix will be send to the specified gateway.
+             *
+             * Must be one of
+             * * private IPv4 ranges of RFC1918
+             * * or `0.0.0.0/0`.
+             *
+             * Must not overlap with
+             * * an existing ip_range in any subnets
+             * * or with any destinations in other routes
+             * * or with `172.31.1.1`.
+             *
+             * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+             *
              * @example 10.100.1.0/24
              */
             destination: string;
             /**
-             * @description Gateway for the route. Cannot be the first IP of the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being used as a gateway for the public network interface of Servers.
+             * @description Gateway of the route.
+             *
+             * Packages addressed for the specified destination will be send to this IP address.
+             *
+             * Cannot be
+             * * the first IP of the networks ip_range,
+             * * an IP behind a vSwitch or
+             * * `172.31.1.1`.
+             *
+             * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+             *
              * @example 10.0.1.1
              */
             gateway: string;
@@ -12758,23 +12926,36 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description Range to allocate IPs from. Must be a Subnet of the ip_range of the parent network object and must not overlap with any other subnets or with any destinations in routes. If the Subnet is of type vSwitch, it also can not overlap with any gateway in routes. Minimum Network size is /30. We suggest that you pick a bigger Network with a /24 netmask.
+             * @description IP range in CIDR block notation of the whole subnetwork.
+             *
+             * Must be a subnet of the parent Network `ip_range`.
+             *
+             * Must not overlap with any other subnets or with any destinations in routes.
+             *
+             * Minimum network size is /30. We highly recommend that you pick a larger network with a /24 netmask.
+             *
              * @example 10.0.1.0/24
              */
             ip_range?: string;
             /**
-             * @description Name of Network zone. The Location object contains the `network_zone` property each Location belongs to.
+             * @description Name of Network Zone.
+             *
+             * The Location object contains the `network_zone` it belongs to.
+             *
              * @example eu-central
              */
             network_zone: string;
             /**
-             * @description Type of Subnetwork
+             * @description Type of Subnetwork.
              * @enum {string}
              */
             type: "cloud" | "server" | "vswitch";
             /**
              * Format: int64
-             * @description ID of the robot vSwitch. Must be supplied if the subnet is of type vswitch.
+             * @description ID of the robot vSwitch.
+             *
+             * Must be supplied if the Subnet is of type `vswitch`.
+             *
              * @example 1000
              */
             vswitch_id?: number;
@@ -12876,8 +13057,13 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description The new prefix for the whole Network
-             * @example 10.0.0.0/12
+             * @description IP range in CIDR block notation of the whole network.
+             *
+             * Must span all included subnets. Must be one of the private IPv4 ranges of RFC1918.
+             *
+             * Minimum network size is /24. We highly recommend that you pick a larger network with a /16 netmask.
+             *
+             * @example 10.0.0.0/16
              */
             ip_range: string;
           };
@@ -13072,12 +13258,36 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description Destination network or host of this route. Must not overlap with an existing ip_range in any subnets or with any destinations in other routes or with the first IP of the networks ip_range or with 172.31.1.1. Must be one of the private IPv4 ranges of RFC1918.
+             * @description Destination network or host of the route.
+             *
+             * Packages addressed for IPs matching the destination IP prefix will be send to the specified gateway.
+             *
+             * Must be one of
+             * * private IPv4 ranges of RFC1918
+             * * or `0.0.0.0/0`.
+             *
+             * Must not overlap with
+             * * an existing ip_range in any subnets
+             * * or with any destinations in other routes
+             * * or with `172.31.1.1`.
+             *
+             * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+             *
              * @example 10.100.1.0/24
              */
             destination: string;
             /**
-             * @description Gateway for the route. Cannot be the first IP of the networks ip_range, an IP behind a vSwitch or 172.31.1.1, as this IP is being used as a gateway for the public network interface of Servers.
+             * @description Gateway of the route.
+             *
+             * Packages addressed for the specified destination will be send to this IP address.
+             *
+             * Cannot be
+             * * the first IP of the networks ip_range,
+             * * an IP behind a vSwitch or
+             * * `172.31.1.1`.
+             *
+             * `172.31.1.1` is being used as a gateway for the public network interface of Servers.
+             *
              * @example 10.0.1.1
              */
             gateway: string;
@@ -13175,7 +13385,7 @@ export interface paths {
         content: {
           "application/json": {
             /**
-             * @description IP range of subnet to delete
+             * @description IP range in CIDR block notation of the Subnet to delete.
              * @example 10.0.1.0/24
              */
             ip_range: string;
@@ -25016,6 +25226,18 @@ export interface components {
      */
     QueryActionStatus?: "running" | "success" | "error";
     /**
+     * @description Limit the items in the response to be created after a specified time.
+     *
+     * The parameter is a datetime formatted as specified by RFC3339.
+     */
+    QueryCreatedAfter?: string;
+    /**
+     * @description Limit the items in the response to be created before a specified time.
+     *
+     * The parameter is a datetime formatted as specified by RFC3339.
+     */
+    QueryCreatedBefore?: string;
+    /**
      * @description Filter resources by labels. The response will only contain resources matching the
      * label selector. For more information, see "[Label Selector](#label-selector)".
      */
@@ -25029,6 +25251,12 @@ export interface components {
     QueryPaginationPage?: number;
     /** @description Maximum number of entries returned per page. For more information, see "[Pagination](#pagination)". */
     QueryPaginationPerPage?: number;
+    /**
+     * @description Filter for project IDs.Can be used multiple times.
+     *
+     * The response will only contain items with the specified projects.
+     */
+    QueryProjectIDList?: number[];
     /**
      * @description Sort resources by field and direction. Can be used multiple times. For more
      * information, see "[Sorting](#sorting)".
