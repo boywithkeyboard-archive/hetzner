@@ -33,7 +33,7 @@
     "openapi-fetch": "^0.9.7"
   },
   "devDependencies": {
-    "@types/node": "^20.14.2",
+    "@types/node": "^20.14.10",
     "esbuild": "^0.21.5",
     "openapi-typescript": "^6.7.6",
     "rimraf": "^5.0.7",
