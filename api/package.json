@@ -30,7 +30,7 @@
     "build": "rimraf build && npm run prebuild && npm run download && tsc && esbuild src/index.ts --bundle --minify --format=esm --external:openapi-fetch --outfile=build/index.js"
   },
   "dependencies": {
-    "openapi-fetch": "^0.9.7"
+    "openapi-fetch": "^0.12.2"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
